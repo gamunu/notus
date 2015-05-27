@@ -194,25 +194,22 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\ct-navbar.css" />
-    <Content Include="Content\css\font-awesome.css" />
-    <Content Include="Content\css\font-awesome.min.css" />
-    <Content Include="Content\css\fullcalendar.css" />
-    <Content Include="Content\css\fullcalendar.print.css" />
-    <Content Include="Content\css\get-shit-done.css" />
-    <Content Include="Content\css\gsdk-base.css" />
-    <Content Include="Content\css\gsdk-checkbox-radio-switch.css" />
-    <Content Include="Content\css\gsdk-sliders.css" />
-    <Content Include="Content\css\select.css" />
+    <Content Include="Content\styles\bootstrap.css" />
+    <Content Include="Content\styles\ct-navbar.css" />
+    <Content Include="Content\styles\font-awesome.css" />
+    <Content Include="Content\styles\fullcalendar.css" />
+    <Content Include="Content\styles\fullcalendar.print.css" />
+    <Content Include="Content\styles\gsdk-base.css" />
+    <Content Include="Content\styles\gsdk-checkbox-radio-switch.css" />
+    <Content Include="Content\styles\gsdk-sliders.css" />
+    <Content Include="Content\styles\select.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\img\carousel_blue.png" />
     <Content Include="Content\img\carousel_green.png" />
     <Content Include="Content\img\carousel_orange.png" />
     <Content Include="Content\img\carousel_red.png" />
     <Content Include="Content\img\logo_small.png" />
-    <None Include="Content\json\treemap.json" />
+    <Content Include="Content\json\treemap.json" />
     <Content Include="Content\js\angular-animate.min.js" />
     <Content Include="Content\js\angular-route.min.js" />
     <Content Include="Content\js\angular-sanitize.min.js" />
@@ -241,7 +238,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\js\jquery-2.1.4.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Properties\PublishProfiles\notus - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\notus - Web Deploy.pubxml" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\charts\compare.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
