@@ -5,13 +5,6 @@ namespace Notus.Portal
 {
     public class BundleConfig
     {
-        public class AsDefinedBundleOrderer : IBundleOrderer
-        {
-            public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
-            {
-                return files;
-            }
-        }
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -64,6 +57,14 @@ namespace Notus.Portal
                 );
             angular.Orderer = new AsDefinedBundleOrderer();
             bundles.Add(angular);
+        }
+
+        public class AsDefinedBundleOrderer : IBundleOrderer
+        {
+            public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+            {
+                return files;
+            }
         }
     }
 }

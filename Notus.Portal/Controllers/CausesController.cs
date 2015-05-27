@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -15,13 +11,11 @@ namespace Notus.Portal.Controllers
 {
     public class CausesController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
         // GET: api/Causes
-        public IQueryable<Object> GetCauses()
+        public IQueryable<object> GetCauses()
         {
-
-           /* return (from c in db.Causes
+            /* return (from c in db.Causes
                     where c.ParentCause == null
                     select new
                     {
@@ -44,11 +38,12 @@ namespace Notus.Portal.Controllers
                     });*/
             return db.Causes;
         }
+
         // GET: api/Causes/5
-        [ResponseType(typeof(Cause))]
+        [ResponseType(typeof (Cause))]
         public async Task<IHttpActionResult> GetCause(int id)
         {
-            Cause cause = await db.Causes.FindAsync(id);
+            var cause = await db.Causes.FindAsync(id);
             if (cause == null)
             {
                 return NotFound();
@@ -58,7 +53,7 @@ namespace Notus.Portal.Controllers
         }
 
         // PUT: api/Causes/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof (void))]
         public async Task<IHttpActionResult> PutCause(int id, Cause cause)
         {
             if (!ModelState.IsValid)
@@ -83,17 +78,14 @@ namespace Notus.Portal.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Causes
-        [ResponseType(typeof(Cause))]
+        [ResponseType(typeof (Cause))]
         public async Task<IHttpActionResult> PostCause(Cause cause)
         {
             if (!ModelState.IsValid)
@@ -104,14 +96,14 @@ namespace Notus.Portal.Controllers
             db.Causes.Add(cause);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = cause.Id }, cause);
+            return CreatedAtRoute("DefaultApi", new {id = cause.Id}, cause);
         }
 
         // DELETE: api/Causes/5
-        [ResponseType(typeof(Cause))]
+        [ResponseType(typeof (Cause))]
         public async Task<IHttpActionResult> DeleteCause(int id)
         {
-            Cause cause = await db.Causes.FindAsync(id);
+            var cause = await db.Causes.FindAsync(id);
             if (cause == null)
             {
                 return NotFound();

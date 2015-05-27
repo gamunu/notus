@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -15,8 +11,7 @@ namespace Notus.Portal.Controllers
 {
     public class CalenderEventsController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
         // GET: api/CalenderEvents
         public IQueryable<CalenderEvent> GetCalenderEvents()
         {
@@ -24,7 +19,7 @@ namespace Notus.Portal.Controllers
         }
 
         // GET: api/CalenderEvents/5
-        [ResponseType(typeof(CalenderEvent))]
+        [ResponseType(typeof (CalenderEvent))]
         public async Task<IHttpActionResult> GetCalenderEvent(int id)
         {
             var calenderEvent = await db.CalenderEvents.FindAsync(id);
@@ -37,7 +32,7 @@ namespace Notus.Portal.Controllers
         }
 
         // PUT: api/CalenderEvents/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof (void))]
         public async Task<IHttpActionResult> PutCalenderEvent(int id, CalenderEvent calenderEvent)
         {
             if (!ModelState.IsValid)
@@ -62,17 +57,14 @@ namespace Notus.Portal.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/CalenderEvents
-        [ResponseType(typeof(CalenderEvent))]
+        [ResponseType(typeof (CalenderEvent))]
         public async Task<IHttpActionResult> PostCalenderEvent(CalenderEvent calenderEvent)
         {
             if (!ModelState.IsValid)
@@ -83,11 +75,11 @@ namespace Notus.Portal.Controllers
             db.CalenderEvents.Add(calenderEvent);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = calenderEvent.Id }, calenderEvent);
+            return CreatedAtRoute("DefaultApi", new {id = calenderEvent.Id}, calenderEvent);
         }
 
         // DELETE: api/CalenderEvents/5
-        [ResponseType(typeof(CalenderEvent))]
+        [ResponseType(typeof (CalenderEvent))]
         public async Task<IHttpActionResult> DeleteCalenderEvent(int id)
         {
             var calenderEvent = await db.CalenderEvents.FindAsync(id);

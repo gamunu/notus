@@ -14,18 +14,19 @@ namespace Notus.Portal.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private readonly IEnumerable<SelectListItem> _countries;
+        private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
-        private readonly IEnumerable<SelectListItem> _countries;
+
         public AccountController()
         {
             _countries = from country in _dbContext.Countries
-                         select new SelectListItem
-                         {
-                             Text = country.Name,
-                             Value = country.Code
-                         };
+                select new SelectListItem
+                {
+                    Text = country.Name,
+                    Value = country.Code
+                };
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -33,11 +34,11 @@ namespace Notus.Portal.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
             _countries = from country in _dbContext.Countries
-                         select new SelectListItem
-                         {
-                             Text = country.Name,
-                             Value = country.Code
-                         };
+                select new SelectListItem
+                {
+                    Text = country.Name,
+                    Value = country.Code
+                };
         }
 
         public ApplicationSignInManager SignInManager
@@ -83,7 +84,7 @@ namespace Notus.Portal.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
+                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, model.RememberMe});
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -101,7 +102,7 @@ namespace Notus.Portal.Controllers
             {
                 return View("Error");
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return View(new VerifyCodeViewModel {Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe});
         }
 
         //
@@ -157,10 +158,9 @@ namespace Notus.Portal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -293,7 +293,7 @@ namespace Notus.Portal.Controllers
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider,
-                Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+                Url.Action("ExternalLoginCallback", "Account", new {ReturnUrl = returnUrl}));
         }
 
         //
@@ -308,9 +308,9 @@ namespace Notus.Portal.Controllers
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions =
-                userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+                userFactors.Select(purpose => new SelectListItem {Text = purpose, Value = purpose}).ToList();
             return
-                View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+                View(new SendCodeViewModel {Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe});
         }
 
         //
@@ -331,7 +331,7 @@ namespace Notus.Portal.Controllers
                 return View("Error");
             }
             return RedirectToAction("VerifyCode",
-                new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
+                new {Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe});
         }
 
         //
@@ -354,14 +354,14 @@ namespace Notus.Portal.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = false});
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return View("ExternalLoginConfirmation",
-                        new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                        new ExternalLoginConfirmationViewModel {Email = loginInfo.Email});
             }
         }
 
@@ -386,7 +386,7 @@ namespace Notus.Portal.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -489,7 +489,7 @@ namespace Notus.Portal.Controllers
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+                var properties = new AuthenticationProperties {RedirectUri = RedirectUri};
                 if (UserId != null)
                 {
                     properties.Dictionary[XsrfKey] = UserId;
@@ -501,9 +501,10 @@ namespace Notus.Portal.Controllers
         #endregion
 
         #region date help stuff
+
         private IEnumerable<SelectListItem> PopulateDay()
         {
-            for (int i = 1; i <= 31; i++)
+            for (var i = 1; i <= 31; i++)
             {
                 yield return new SelectListItem
                 {
@@ -515,9 +516,9 @@ namespace Notus.Portal.Controllers
 
         private IEnumerable<SelectListItem> PopulateMonth()
         {
-            for (int i = 1; i <= 12; i++)
+            for (var i = 1; i <= 12; i++)
             {
-                string month = Convert.ToDateTime(i + "/1/1900").ToString("MMMM");
+                var month = Convert.ToDateTime(i + "/1/1900").ToString("MMMM");
                 yield return new SelectListItem
                 {
                     Text = month,
@@ -528,9 +529,9 @@ namespace Notus.Portal.Controllers
 
         private IEnumerable<SelectListItem> PopulateYear()
         {
-            for (int i = DateTime.Now.Year; i >= 1950; i--)
+            for (var i = DateTime.Now.Year; i >= 1950; i--)
             {
-                string year = i.ToString();
+                var year = i.ToString();
                 yield return new SelectListItem
                 {
                     Text = year,
@@ -541,21 +542,23 @@ namespace Notus.Portal.Controllers
 
         private IEnumerable<SelectListItem> PopulateGender()
         {
-            return (new[] {new SelectListItem
+            return (new[]
             {
-                Text = "Male",
-                Value = "m"
-            },
-            new SelectListItem
-            {
-                Text = "Female",
-                Value = "f"
-            },
-            new SelectListItem
-            {
-                Text = "Not specified",
-                Value = "u"
-            }
+                new SelectListItem
+                {
+                    Text = "Male",
+                    Value = "m"
+                },
+                new SelectListItem
+                {
+                    Text = "Female",
+                    Value = "f"
+                },
+                new SelectListItem
+                {
+                    Text = "Not specified",
+                    Value = "u"
+                }
             }).ToList();
         }
 

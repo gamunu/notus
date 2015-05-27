@@ -6,6 +6,7 @@ namespace Notus.Portal.Models
     {
         [Key]
         public int Id { get; set; }
+
         public string Name { get; set; }
         public int? ParentCause { get; set; }
     }

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -14,7 +14,7 @@ $(document).ready(function () {
     /* initialize the external events
     -----------------------------------------------------------------*/
 
-    $('#external-events div.external-event').each(function () {
+    $('#external-events div.external-event').each(function() {
 
         // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
         // it doesn't need to have a start or end
@@ -28,8 +28,8 @@ $(document).ready(function () {
         // make the event draggable using jQuery UI
         $(this).draggable({
             zIndex: 999,
-            revert: true,      // will cause the event to go back to its
-            revertDuration: 0  //  original position after the drag
+            revert: true, // will cause the event to go back to its
+            revertDuration: 0 //  original position after the drag
         });
 
     });
@@ -51,19 +51,19 @@ $(document).ready(function () {
 
         axisFormat: 'h:mm',
         columnFormat: {
-            month: 'ddd',    // Mon
+            month: 'ddd', // Mon
             week: 'ddd d', // Mon 7
-            day: 'dddd M/d',  // Monday 9/7
+            day: 'dddd M/d', // Monday 9/7
             agendaDay: 'dddd d'
         },
         titleFormat: {
             month: 'MMMM yyyy', // September 2009
-            week: "MMMM yyyy", // September 2009
-            day: 'MMMM yyyy'                  // Tuesday, Sep 8, 2009
+            week: 'MMMM yyyy', // September 2009
+            day: 'MMMM yyyy' // Tuesday, Sep 8, 2009
         },
         allDaySlot: false,
         selectHelper: true,
-        select: function (start, end, allDay) {
+        select: function(start, end, allDay) {
             var title = prompt('Event Title:');
             if (title) {
                 calendar.fullCalendar('renderEvent',
@@ -79,7 +79,7 @@ $(document).ready(function () {
             calendar.fullCalendar('unselect');
         },
         droppable: true, // this allows things to be dropped onto the calendar !!!
-        drop: function (date, allDay) { // this function is called when something is dropped
+        drop: function(date, allDay) { // this function is called when something is dropped
 
             // retrieve the dropped element's stored Event Object
             var originalEventObject = $(this).data('eventObject');
@@ -154,6 +154,6 @@ $(document).ready(function () {
 
 /*For performance reasons, the Tooltip and Popover data-apis are opt-in, 
 meaning you must initialize them yourself. */
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip({'container' : 'body'});
-})
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip({ 'container': 'body' });
+});

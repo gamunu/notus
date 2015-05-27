@@ -54,7 +54,7 @@ namespace Notus.Portal.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", "Account", new { ReturnUrl = returnUrl, model.RememberMe });
+                    return RedirectToAction("SendCode", "Account", new {ReturnUrl = returnUrl, model.RememberMe});
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");

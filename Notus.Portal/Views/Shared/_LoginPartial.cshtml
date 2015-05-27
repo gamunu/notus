@@ -22,7 +22,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new { title = "Manage" })
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new {title = "Manage"})
             </li>
             <li>
                 <a href="#">Something</a>
@@ -35,7 +35,7 @@
             </li>
             <li class="divider"></li>
             <li>
-                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm"}))
                 {
                     @Html.AntiForgeryToken()
                     <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
@@ -43,5 +43,4 @@
             </li>
         </ul>
     </li>
-
 }

@@ -19,25 +19,25 @@
             this.setState();
         },
         setState: function() {
-            var $el = this.$element, $parent = $el.closest(".radio");
+            var $el = this.$element, $parent = $el.closest('.radio');
 
-            $el.prop("disabled") && $parent.addClass("disabled");
-            $el.prop("checked") && $parent.addClass("checked");
+            $el.prop('disabled') && $parent.addClass('disabled');
+            $el.prop('checked') && $parent.addClass('checked');
         },
         toggle: function() {
-            var d = "disabled",
-                ch = "checked",
+            var d = 'disabled',
+                ch = 'checked',
                 $el = this.$element,
                 checked = $el.prop(ch),
-                $parent = $el.closest(".radio"),
-                $parentWrap = $el.closest("form").length ? $el.closest("form") : $el.closest("body"),
-                $elemGroup = $parentWrap.find(":radio[name=\"" + $el.attr("name") + "\"]"),
-                e = $.Event("toggle");
+                $parent = $el.closest('.radio'),
+                $parentWrap = $el.closest('form').length ? $el.closest('form') : $el.closest('body'),
+                $elemGroup = $parentWrap.find(':radio[name="' + $el.attr('name') + '"]'),
+                e = $.Event('toggle');
             $elemGroup.not($el).each(function() {
-                var $el = $(this), $parent = $(this).closest(".radio");
+                var $el = $(this), $parent = $(this).closest('.radio');
 
                 if ($el.prop(d) == false) {
-                    $parent.removeClass(ch) && $el.removeAttr(ch).trigger("change");
+                    $parent.removeClass(ch) && $el.removeAttr(ch).trigger('change');
                 }
             });
 
@@ -46,30 +46,30 @@
                 $el.trigger(e);
 
                 if (checked !== $el.prop(ch)) {
-                    $el.trigger("change");
+                    $el.trigger('change');
                 }
             }
         },
         setCheck: function(option) {
-            var ch = "checked",
+            var ch = 'checked',
                 $el = this.$element,
-                $parent = $el.closest(".radio"),
-                checkAction = option == "check" ? true : false,
+                $parent = $el.closest('.radio'),
+                checkAction = option == 'check' ? true : false,
                 checked = $el.prop(ch),
-                $parentWrap = $el.closest("form").length ? $el.closest("form") : $el.closest("body"),
-                $elemGroup = $parentWrap.find(":radio[name=\"" + $el["attr"]("name") + "\"]"),
+                $parentWrap = $el.closest('form').length ? $el.closest('form') : $el.closest('body'),
+                $elemGroup = $parentWrap.find(':radio[name="' + $el['attr']('name') + '"]'),
                 e = $.Event(option);
             $elemGroup.not($el).each(function() {
-                var $el = $(this), $parent = $(this).closest(".radio");
+                var $el = $(this), $parent = $(this).closest('.radio');
 
                 $parent.removeClass(ch) && $el.removeAttr(ch);
             });
 
-            $parent[checkAction ? "addClass" : "removeClass"](ch) && checkAction ? $el.prop(ch, ch) : $el.removeAttr(ch);
+            $parent[checkAction ? 'addClass' : 'removeClass'](ch) && checkAction ? $el.prop(ch, ch) : $el.removeAttr(ch);
             $el.trigger(e);
 
             if (checked !== $el.prop(ch)) {
-                $el.trigger("change");
+                $el.trigger('change');
             }
         }
 
@@ -80,16 +80,16 @@
     $.fn.radio = function(option) {
         return this.each(function() {
             var $this = $(this),
-                data = $this.data("radio"),
-                options = $.extend({}, $.fn.radio.defaults, $this.data(), typeof option == "object" && option);
-            if (!data) $this.data("radio", (data = new Radio(this, options)));
-            if (option == "toggle") data.toggle();
-            if (option == "check" || option == "uncheck") data.setCheck(option);
+                data = $this.data('radio'),
+                options = $.extend({}, $.fn.radio.defaults, $this.data(), typeof option == 'object' && option);
+            if (!data) $this.data('radio', (data = new Radio(this, options)));
+            if (option == 'toggle') data.toggle();
+            if (option == 'check' || option == 'uncheck') data.setCheck(option);
             else if (option) data.setState();
         });
     };
     $.fn.radio.defaults = {
-        template: "<span class=\"icons\"><span class=\"first-icon fa fa-circle-o\"></span><span class=\"second-icon fa fa-dot-circle-o\"></span></span>"
+        template: '<span class="icons"><span class="first-icon fa fa-circle-o"></span><span class="second-icon fa fa-dot-circle-o"></span></span>'
     }; /* RADIO NO CONFLICT
   * ================== */
 
@@ -99,15 +99,15 @@
     }; /* RADIO DATA-API
   * =============== */
 
-    $(document).on("click.radio.data-api", "[data-toggle^=radio], .radio", function(e) {
+    $(document).on('click.radio.data-api', '[data-toggle^=radio], .radio', function(e) {
         var $radio = $(e.target);
         e && e.preventDefault() && e.stopPropagation();
-        if (!$radio.hasClass("radio")) $radio = $radio.closest(".radio");
-        $radio.find(":radio").radio("toggle");
+        if (!$radio.hasClass('radio')) $radio = $radio.closest('.radio');
+        $radio.find(':radio').radio('toggle');
     });
 
     $(function() {
-        $("[data-toggle=\"radio\"]").each(function() {
+        $('[data-toggle="radio"]').each(function() {
             var $radio = $(this);
             $radio.radio();
         });

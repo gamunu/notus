@@ -48,7 +48,8 @@ namespace Notus.Portal
             // Uncomment the following lines to enable logging in with third party login providers
             app.UseMicrosoftAccountAuthentication("000000004C152607", "cLwO9JehFhEO0oH7nKcQibtN8EDO7F3Q");
 
-            app.UseTwitterAuthentication("WHdqMvVkUfnYQIoOlTq5ruCJj", "DJfBVZG1DYhTbZsMp4bZoe1XJ9tCQJBgpcddcv8F6Gefdgby8j");
+            app.UseTwitterAuthentication("WHdqMvVkUfnYQIoOlTq5ruCJj",
+                "DJfBVZG1DYhTbZsMp4bZoe1XJ9tCQJBgpcddcv8F6Gefdgby8j");
 
             //app.UseFacebookAuthentication(
             //   appId: "",

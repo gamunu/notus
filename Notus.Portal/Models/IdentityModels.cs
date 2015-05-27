@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -13,6 +12,7 @@ namespace Notus.Portal.Models
     {
         [Key]
         public int Id { get; set; }
+
         public string Code { get; set; }
         public string Name { get; set; }
     }
@@ -24,7 +24,7 @@ namespace Notus.Portal.Models
         public string LastName { get; set; }
         public string Country { get; set; }
         public string Gender { get; set; }
-        public DateTime BirthDate { get; set; } 
+        public DateTime BirthDate { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -41,6 +41,10 @@ namespace Notus.Portal.Models
             : base("DefaultConnection", false)
         {
         }
+
+        public DbSet<CalenderEvent> CalenderEvents { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Cause> Causes { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -67,9 +71,5 @@ namespace Notus.Portal.Models
             // Change the name of the table to be Roles instead of AspNetRoles
             modelBuilder.Entity<IdentityRole>().ToTable("Roles");
         }
-
-        public DbSet<CalenderEvent> CalenderEvents { get; set; }
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<Cause> Causes { get; set; } 
     }
 }

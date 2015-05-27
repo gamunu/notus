@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 
 namespace Notus.Portal.Controllers
@@ -14,13 +10,12 @@ namespace Notus.Portal.Controllers
         {
             return new Dictionary<string, object>
             {
-                {"USA", new KeyValuePair<string,object>("fillKey", "authorHasTraveledTo")},
-                {"JPN", new KeyValuePair<string,object>("fillKey", "authorHasTraveledTo")},
-                {"ITA", new KeyValuePair<string,object>("fillKey", "authorHasTraveledTo")},
-                {"CRI", new KeyValuePair<string,object>("fillKey", "authorHasTraveledTo")},
-                {"KOR", new KeyValuePair<string,object>("fillKey", "authorHasTraveledTo")},
-                {"DEU", new KeyValuePair<string,object>("fillKey", "authorHasTraveledTo")}
-
+                {"USA", new KeyValuePair<string, object>("fillKey", "authorHasTraveledTo")},
+                {"JPN", new KeyValuePair<string, object>("fillKey", "authorHasTraveledTo")},
+                {"ITA", new KeyValuePair<string, object>("fillKey", "authorHasTraveledTo")},
+                {"CRI", new KeyValuePair<string, object>("fillKey", "authorHasTraveledTo")},
+                {"KOR", new KeyValuePair<string, object>("fillKey", "authorHasTraveledTo")},
+                {"DEU", new KeyValuePair<string, object>("fillKey", "authorHasTraveledTo")}
             };
         }
 
@@ -31,12 +26,12 @@ namespace Notus.Portal.Controllers
         }
 
         // POST: api/WordMap
-        public void Post([FromBody]string value)
+        public void Post([FromBody] string value)
         {
         }
 
         // PUT: api/WordMap/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] string value)
         {
         }
 
