@@ -50,17 +50,17 @@ namespace Notus.Portal.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please enter your email address in the format someone@example.com.")]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the password for your Notus account")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Keep me signed in")]
         public bool RememberMe { get; set; }
     }
 
@@ -70,6 +70,39 @@ namespace Notus.Portal.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Country/Region")]
+        public string Country { get; set; }
+
+        [Required]
+        [Display(Name = "Birthdate")]
+        public string BirthMonth { get; set; }
+
+        [Required]
+        public string BirthDay { get; set; }
+
+        [Required]
+        public string BirthYear { get; set; }
+
+        [Required]
+        [Display(Name = "Phone number")]
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Gender")]
+        public string Gender { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

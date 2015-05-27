@@ -17,8 +17,8 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44300</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -169,58 +169,80 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalenderController.cs" />
+    <Compile Include="Controllers\CalenderEventsController.cs" />
+    <Compile Include="Controllers\CausesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VisualizeController.cs" />
+    <Compile Include="Controllers\WorldMapController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505240727158_Initial.cs" />
+    <Compile Include="Migrations\201505240727158_Initial.Designer.cs">
+      <DependentUpon>201505240727158_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CalenderModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\VisualizeModels.cs" />
+    <Compile Include="Models\VisualizeViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\bootstrap-theme.css" />
-    <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\ct-navbar.css" />
     <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\fullcalendar.css" />
+    <Content Include="Content\css\fullcalendar.print.css" />
     <Content Include="Content\css\get-shit-done.css" />
     <Content Include="Content\css\gsdk-base.css" />
     <Content Include="Content\css\gsdk-checkbox-radio-switch.css" />
     <Content Include="Content\css\gsdk-sliders.css" />
-    <Content Include="Content\css\pe-icon-7-stroke.css" />
+    <Content Include="Content\css\select.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\fonts\Pe-icon-7-stroke.svg" />
-    <Content Include="Content\img\bg.jpg" />
-    <Content Include="Content\img\blurred-black-cover.jpeg" />
     <Content Include="Content\img\carousel_blue.png" />
     <Content Include="Content\img\carousel_green.png" />
     <Content Include="Content\img\carousel_orange.png" />
     <Content Include="Content\img\carousel_red.png" />
-    <Content Include="Content\img\cover_4.jpg" />
-    <Content Include="Content\img\cover_4_blur.jpg" />
-    <Content Include="Content\img\dulau.jpg" />
-    <Content Include="Content\img\mask.png" />
-    <Content Include="Content\img\mockup.png" />
-    <Content Include="Content\img\new_logo.png" />
-    <Content Include="Content\img\tim_80x80.png" />
+    <Content Include="Content\img\logo_small.png" />
+    <None Include="Content\json\treemap.json" />
+    <Content Include="Content\js\angular-animate.min.js" />
+    <Content Include="Content\js\angular-route.min.js" />
+    <Content Include="Content\js\angular-sanitize.min.js" />
+    <Content Include="Content\js\angular-ui-router.min.js" />
+    <Content Include="Content\js\angular.min.js" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\ct-navbar.js" />
     <Content Include="Content\js\custom.js" />
+    <Content Include="Content\js\d3.js" />
+    <Content Include="Content\js\d3.min.js" />
+    <Content Include="Content\js\fullcalendar.js" />
+    <Content Include="Content\js\jquery-2.1.4.min.js" />
+    <Content Include="Content\js\jquery-ui.min.js" />
+    <Content Include="Content\js\select.min.js" />
+    <Content Include="Content\js\slider.js" />
+    <Content Include="Content\js\topojson.min.js" />
+    <Content Include="Scripts\App\app.js" />
+    <Content Include="Scripts\App\controllers.js" />
+    <Content Include="Scripts\charts\datamaps.all.js" />
     <Content Include="Content\js\get-shit-done.js" />
     <Content Include="Content\js\gsdk-bootstrapswitch.js" />
     <Content Include="Content\js\gsdk-checkbox.js" />
     <Content Include="Content\js\gsdk-radio.js" />
-    <Content Include="Content\js\jquery-1.10.2.js" />
-    <Content Include="Content\js\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="favicon.ico" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\js\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\charts\compare.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -259,23 +281,28 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Calender\Index.cshtml" />
     <None Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Shared\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Visualize\Home.cshtml" />
+    <Content Include="Views\Visualize\Controls.cshtml" />
+    <None Include="Views\Visualize\Index.cshtml" />
+    <Content Include="Views\Visualize\TreeMap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="Content\fonts\Pe-icon-7-stroke.eot" />
-    <Content Include="Content\fonts\Pe-icon-7-stroke.ttf" />
-    <Content Include="Content\fonts\Pe-icon-7-stroke.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201505240727158_Initial.resx">
+      <DependentUpon>201505240727158_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

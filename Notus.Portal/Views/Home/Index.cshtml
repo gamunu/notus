@@ -1,53 +1,122 @@
-﻿@{
+﻿@using Notus.Portal.Models
+@model LoginViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div id="carousel">
-    <!--
-    IMPORTANT - This carousel can have a special class for a smooth transition "gsdk-transition". Since javascript cannot be overwritten, if you want to use it, you can use the bootstrap.js or bootstrap.min.js from the GSDKit or you can open your bootstrap.js file, search for "emulateTransitionEnd(600)" and change it with "emulateTransitionEnd(1200)"
+<div class="row">
+    <div class="col-md-8">
+        <div id="carousel">
+            <!--
+            IMPORTANT - This carousel can have a special class for a smooth transition "gsdk-transition". Since javascript cannot be overwritten, if you want to use it, you can use the bootstrap.js or bootstrap.min.js from the GSDKit or you can open your bootstrap.js file, search for "emulateTransitionEnd(600)" and change it with "emulateTransitionEnd(1200)"
 
-    -->
-    <div id="carousel-example-generic" class="carousel slide gsdk-transition" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
+            -->
+            <div id="carousel-example-generic" class="carousel slide gsdk-transition" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                </ol>
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <img src="/Content/img/carousel_blue.png" alt="Awesome Image">
-            </div>
-            <div class="item">
-                <img src="/Content/img/carousel_green.png" alt="Awesome Image">
-            </div>
-            <div class="item">
-                <img src="/Content/img/carousel_red.png" alt="Awesome Image">
-            </div>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="/Content/img/carousel_blue.png" alt="Awesome Image">
+                    </div>
+                    <div class="item">
+                        <div class="col-md-12">
+                            <h1 class="text-center">
+                                Notus <small class="subtitle">Chronic, Non-Communicable Diseases Surveillance System.</small>
+                            </h1>
+                            <p>
+                                Non-communicable diseases (NCDs) are one of the major health and development challenges of 21st century, in terms of both the human suffering they cause and the harm they inflict on the socioeconomic of fabric countries, particularly low and middle income countries.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="col-md-12">
+                            <p class="text-center">
+                                Non-communicable diseases (NCDs) is directly affecting on the deaths rate of a country. However, NCD surveillance is a relatively under developed area unlike surveillance of communicable diseases which are mostly symptomatic. Hence, population surveys are the only way in which data on prevalence and risk factors could be obtained. Taking this into consideration, WHO has designed a simple, standardized method for collecting, analyzing and disseminating data relating to NCDs which could be used by countries.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="col-md-12">
+                            <p class="text-center">
+                                This is called the STEPwise approach to surveillance (STEPS). By using the same standardized questions and protocols, all countries can use STEPS information not only for monitoring within-country trends, but also for making comparisons across countries. The approach encourages the collection of small amounts of useful information on a regular and continuing basis. However, the WHO survey tool by at large manual and follows a lengthy procedure from sampling framework calculations to population survey to data analysis and dissemination. The entire process takes a minimum of 3 months post field data collection and is subject to errors. It also is limited to a STEPS country report which would have limited dissemination in a country.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="col-md-12">
+                            <p class="text-center">
+                                This project aims at providing a holistic solution for conducting STEPS in a country where the entire process would be automated and online. It aims at providing a platform for a completely automated survey process and goes further to automate data processing, data analysis and report generation via an interactive web based platform.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="/Content/img/carousel_green.png" alt="Awesome Image">
+                    </div>
+                    <div class="item">
+                        <img src="/Content/img/carousel_blue.png" alt="Awesome Image">
+                    </div>
+                    <div class="item">
+                        <img src="/Content/img/carousel_red.png" alt="Awesome Image">
+                    </div>
+
+                </div>
+            </div> <!-- end carousel -->
         </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-            <span class="fa fa-angle-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-            <span class="fa fa-angle-right"></span>
-        </a>
     </div>
-</div> <!-- end carousel -->
+    <div class="col-md-3">
+        <!-- front page login starts -->
+        <div id="loginForm">
+            @using (Html.BeginForm("Index", "Home", new { ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Log in to your Notus account.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "sr-only" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "someone@example.com" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
 
-<div class="container">
-    <div class="container tim-container" style="max-width: 800px; padding-top: 100px">
-        <h1 class="text-center">
-            Notus <br/> Because Your Life Matters <small class="subtitle">This is like a small motto before the story.</small>
-        </h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <!-- end extras -->
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "sr-only" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="checkbox" for="RememberMe">
+                        @Html.CheckBoxFor(m => m.RememberMe, new Dictionary<string, object> { { "data-toggle", "checkbox" } })
+                        @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Log in" class="btn btn-primary btn-fill" />
+                </div>
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+            }
+
+            <div id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </div>
+            <p>
+                Don't have a Notus account? @Html.ActionLink("Sign up now", "Register", "Account")
+            </p>
+        </div>
     </div>
-    <div class="space"></div>
-
 </div>
+
+<div class="space"></div>
+
 <!--/ .container -->

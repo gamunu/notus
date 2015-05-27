@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Notus.Portal.Models;
 using Owin;
 
@@ -45,23 +46,19 @@ namespace Notus.Portal
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseMicrosoftAccountAuthentication("000000004C152607", "cLwO9JehFhEO0oH7nKcQibtN8EDO7F3Q");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication("WHdqMvVkUfnYQIoOlTq5ruCJj", "DJfBVZG1DYhTbZsMp4bZoe1XJ9tCQJBgpcddcv8F6Gefdgby8j");
 
             //app.UseFacebookAuthentication(
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
+            {
+                ClientId = "145434297224-8dsd4e6p2kdgni4kkrhth5ujcl64gc6m.apps.googleusercontent.com",
+                ClientSecret = "3PW0KYtplvXXSgiRlW8N3tdt"
+            });
         }
     }
 }
