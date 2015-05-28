@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Notus.Portal.Models
 {
@@ -15,6 +11,9 @@ namespace Notus.Portal.Models
         [Required]
         [Display(Name = "Metric")]
         public string Metric { get; set; }
+
+        [Display(Name = "Risk Factor")]
+        public string RiskFactor { get; set; }
 
         [Required]
         [Display(Name = "Place")]

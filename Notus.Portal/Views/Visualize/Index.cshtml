@@ -22,6 +22,17 @@
                                 </div>
                             </div>
                         </div>
+                    </div>                <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.RiskFactor, new { @class = "control-label" })
+
+                            <div ui-select ng-model="risk.selected" title="Choose a Risk Factor">
+                                <div ui-select-match placeholder="Select a Risk Factor">{{$select.selected.Name}}</div>
+                                <div ui-select-choices group-by="someGroupFn" repeat="cause.Name as cause in causes | propsFilter: {Name: $select.search}">
+                                    <div ng-bind-html="cause.Name | highlight: $select.search"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
@@ -33,17 +44,49 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                    </div>  <div class="row">
                         <div class="form-group">
-                            <label class="control-label" for="CauseOf">CauseOf</label>
-                            <div ui-slider="slider.options" ng-model="GraphControls.slider"></div>
-                            <label ng-bind="GraphControls.slider"></label>
+                            @Html.LabelFor(m => m.Place, new { @class = "control-label" })
+
+                            <div ui-select ng-model="risk.selected" title="Choose a Risk Factor">
+                                <div ui-select-match placeholder="Select a Risk Factor">{{$select.selected.Name}}</div>
+                                <div ui-select-choices group-by="someGroupFn" repeat="cause.Name as cause in causes | propsFilter: {Name: $select.search}">
+                                    <div ng-bind-html="cause.Name | highlight: $select.search"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
+                            @Html.LabelFor(m => m.Year, new { @class = "control-label" })
+                            <label ng-bind="GraphControls.slider"></label>
+                            <div ui-slider="slider.options" min="1990" max="2010" step="5" ng-model="GraphControls.slider"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Age, new { @class = "control-label" })
+                            <div ui-select ng-model="age.selected" title="Choose a age">
+                                <div ui-select-match placeholder="Select a metric">{{$select.selected.Name}}</div>
+                                <div ui-select-choices repeat="age.Name as age in ages | propsFilter: {Name: $select.search}">
+                                    <div ng-bind-html="age.Name | highlight: $select.search"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Color, new { @class = "control-label" })
                             <input type="checkbox" checked data-toggle="switch" class="ct-green" />
+
+                            <div ui-select ng-model="color.selected" title="Choose a color">
+                                <div ui-select-match placeholder="Select a metric">{{$select.selected.Name}}</div>
+                                <div ui-select-choices repeat="color.Name as color in colors | propsFilter: {Name: $select.search}">
+                                    <div ng-bind-html="color.Name | highlight: $select.search"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }
