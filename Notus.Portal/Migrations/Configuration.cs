@@ -16,16 +16,6 @@ namespace Notus.Portal.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
             var countries = new[]
             {
                 new Country {Name = "Brazil", Code = "BR"},
@@ -264,6 +254,90 @@ namespace Notus.Portal.Migrations
             };
 
             context.Causes.AddOrUpdate(e => e.Id, causes);
+
+            //Risk Factors update
+
+            var risks = new[]
+            {
+                //Unimproved water and sanitation
+                new RiskFactor {Name = "Unimproved water and sanitation", Status = "active"},
+                new RiskFactor {Name = "Unimproved water source", Status = "active"},
+                new RiskFactor {Name = "Unimproved sanitation", Status = "active"},
+
+                //Air pollution
+                new RiskFactor {Name = "Air pollution", Status = "inactive"},
+                new RiskFactor {Name = "Ambient particulate matter pollution", Status = "active"},
+                new RiskFactor {Name = "Household air pollution from solid fuels", Status = "active"},
+                new RiskFactor {Name = "Ambient ozone pollution", Status = "active"},
+
+                //Other environmental risks
+                new RiskFactor{Name = "Other environmental risks", Status = "active"},
+                new RiskFactor {Name="Residential radon", Status = "active"},
+                new RiskFactor {Name ="Lead exposure", Status = "active"},
+
+                //Child and maternal undernutrition
+                new RiskFactor {Name="Other environmental risks", Status = "active"},
+                new RiskFactor{Name = "Residential radon", Status = "active"},
+                new RiskFactor{Name = "Lead exposure", Status = "active"},
+
+                //Child and maternal undernutrition
+                new RiskFactor{Name = "Child and maternal undernutrition", Status = "active"},
+                new RiskFactor{Name = "Suboptimal breastfeeding", Status = "active"},
+                new RiskFactor{Name = "Childhood underweight", Status = "active"},
+                new RiskFactor{Name = "Iron deficiency", Status = "active"},
+                new RiskFactor{Name = "Vitamin A deficiency", Status = "active"},
+                new RiskFactor{Name = "Zinc deficiency", Status = "active"},
+
+                //Tobacco smoking
+                new RiskFactor{Name = "Tobacco smoking",Status = "active"},
+                new RiskFactor{Name = "Tobacco smoking, excluding second-hand smoke", Status = "active"},
+                new RiskFactor{Name = "Second-hand smoke", Status = "active"},
+
+                //Alcohol and drug use
+                new RiskFactor{Name = "Alcohol and drug use", Status = "active"},
+                new RiskFactor{Name = "Alcohol use", Status = "active"},
+                new RiskFactor{Name = "Drug use", Status = "active"},
+
+                //Physiological risks
+                new RiskFactor{Name = "Physiological risks",Status = "inactive"},
+                new RiskFactor {Name = "High fasting plasma glucose", Status = "active"},
+                new RiskFactor {Name = "High total cholesterol", Status = "active"},
+                new RiskFactor {Name = "High blood pressure", Status = "active"},
+                new RiskFactor {Name = "High body-mass index", Status = "active"},
+                new RiskFactor {Name = "Low bone mineral density", Status = "active"},
+                //Dietary risks
+                new RiskFactor {Name = "Dietary risks", Status = "active"},
+                new RiskFactor {Name = "Diet low in fruits", Status = "active"},
+                new RiskFactor {Name = "Diet low in vegetables", Status = "active"},
+                new RiskFactor {Name = "Diet low in whole grains", Status = "active"},
+                new RiskFactor {Name = "Diet low in nuts and seeds", Status = "active"},
+                new RiskFactor {Name = "Diet low in milk", Status = "active"},
+                new RiskFactor {Name = "Diet low in red meat", Status = "active"},
+                new RiskFactor {Name = "Diet high in precessed meat", Status = "active"},
+                new RiskFactor {Name = "Diet high in sugar-sweetened beverages", Status = "active"},
+                new RiskFactor {Name = "Diet low in fiber", Status = "active"},
+                new RiskFactor {Name = "Diet low in calcium", Status = "active"},
+                new RiskFactor {Name = "Diet low in seafood omega-3 fatty acids", Status = "active"},
+                new RiskFactor {Name = "Diet low in polyunsaturated fatty acids", Status = "active"},
+                new RiskFactor {Name = "Diet high in trans fattry acids", Status = "active"},
+                new RiskFactor {Name = "Diet high in sodium", Status = "active"},
+
+                //Physical inactivity and low physical activity
+                new RiskFactor {Name = "Physical inactivity and low physical activity", Status = "active"},
+                new RiskFactor {Name = "Occypational carcinogens", Status = "active"},
+                new RiskFactor {Name = "Occupational asthmagens", Status = "active"},
+                new RiskFactor {Name = "Occupational particulate matter, gases, and fumes", Status = "active"},
+                new RiskFactor {Name = "Occupational noise", Status = "active"},
+                new RiskFactor {Name = "Occupational risk factors for injuries", Status = "active"},
+                new RiskFactor {Name = "Occupational low back pain", Status = "active"},
+          
+                //Sexual abuse and violence
+                new RiskFactor {Name = "Sexual abuse and violence", Status = "active"},
+                new RiskFactor {Name = "Childhood sexual abuse", Status = "active"},
+                new RiskFactor {Name = "Intimate partner violence", Status = "active"},
+            };
+
+            context.RiskFactors.AddOrUpdate(e => e.Id, risks);
         }
     }
 }

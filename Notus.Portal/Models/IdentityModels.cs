@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,8 +12,8 @@ namespace Notus.Portal.Models
     public class Country
     {
         [Key]
-        public int Id { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
     }
@@ -45,6 +46,7 @@ namespace Notus.Portal.Models
         public DbSet<CalenderEvent> CalenderEvents { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Cause> Causes { get; set; }
+        public DbSet<RiskFactor> RiskFactors { get; set; }
 
         public static ApplicationDbContext Create()
         {

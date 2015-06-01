@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -54,7 +55,7 @@ namespace Notus.Portal.Controllers
 
         // PUT: api/Causes/5
         [ResponseType(typeof (void))]
-        public async Task<IHttpActionResult> PutCause(int id, Cause cause)
+        public async Task<IHttpActionResult> PutCause(long id, Cause cause)
         {
             if (!ModelState.IsValid)
             {
@@ -124,7 +125,7 @@ namespace Notus.Portal.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CauseExists(int id)
+        private bool CauseExists(long id)
         {
             return db.Causes.Count(e => e.Id == id) > 0;
         }
