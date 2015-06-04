@@ -22,11 +22,11 @@ namespace Notus.Portal.Controllers
         public AccountController()
         {
             _countries = from country in _dbContext.Countries
-                select new SelectListItem
-                {
-                    Text = country.Name,
-                    Value = country.Code
-                };
+                         select new SelectListItem
+                         {
+                             Text = country.Name,
+                             Value = country.Code
+                         };
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -34,11 +34,11 @@ namespace Notus.Portal.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
             _countries = from country in _dbContext.Countries
-                select new SelectListItem
-                {
-                    Text = country.Name,
-                    Value = country.Code
-                };
+                         select new SelectListItem
+                         {
+                             Text = country.Name,
+                             Value = country.Code
+                         };
         }
 
         public ApplicationSignInManager SignInManager
@@ -58,6 +58,11 @@ namespace Notus.Portal.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -69,6 +74,11 @@ namespace Notus.Portal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -84,8 +94,8 @@ namespace Notus.Portal.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, model.RememberMe});
-                case SignInStatus.Failure:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
+                //case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
@@ -97,12 +107,17 @@ namespace Notus.Portal.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
                 return View("Error");
             }
-            return View(new VerifyCodeViewModel {Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe});
+            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -112,6 +127,11 @@ namespace Notus.Portal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -131,7 +151,7 @@ namespace Notus.Portal.Controllers
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                case SignInStatus.Failure:
+                //case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid code.");
                     return View(model);
@@ -143,6 +163,10 @@ namespace Notus.Portal.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.Country = _countries;
             ViewBag.Gender = PopulateGender();
             ViewBag.BirthMonth = PopulateMonth();
@@ -158,9 +182,23 @@ namespace Notus.Portal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    Country = model.Country,
+                    BirthDate = SelectedDateTime(model.BirthDay, model.BirthMonth, model.BirthYear),
+                    Gender = model.Gender,
+                    PhoneNumber = model.PhoneNumber
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -293,7 +331,7 @@ namespace Notus.Portal.Controllers
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider,
-                Url.Action("ExternalLoginCallback", "Account", new {ReturnUrl = returnUrl}));
+                Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
         //
@@ -308,9 +346,9 @@ namespace Notus.Portal.Controllers
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions =
-                userFactors.Select(purpose => new SelectListItem {Text = purpose, Value = purpose}).ToList();
+                userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return
-                View(new SendCodeViewModel {Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe});
+                View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -331,7 +369,7 @@ namespace Notus.Portal.Controllers
                 return View("Error");
             }
             return RedirectToAction("VerifyCode",
-                new {Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe});
+                new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
         }
 
         //
@@ -347,6 +385,7 @@ namespace Notus.Portal.Controllers
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, false);
+            
             switch (result)
             {
                 case SignInStatus.Success:
@@ -354,14 +393,14 @@ namespace Notus.Portal.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = false});
-                case SignInStatus.Failure:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                //case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return View("ExternalLoginConfirmation",
-                        new ExternalLoginConfirmationViewModel {Email = loginInfo.Email});
+                        new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
@@ -386,7 +425,7 @@ namespace Notus.Portal.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -489,7 +528,7 @@ namespace Notus.Portal.Controllers
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties {RedirectUri = RedirectUri};
+                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
                 if (UserId != null)
                 {
                     properties.Dictionary[XsrfKey] = UserId;
@@ -502,7 +541,7 @@ namespace Notus.Portal.Controllers
 
         #region date help stuff
 
-        private IEnumerable<SelectListItem> PopulateDay()
+        private static IEnumerable<SelectListItem> PopulateDay()
         {
             for (var i = 1; i <= 31; i++)
             {
@@ -514,7 +553,7 @@ namespace Notus.Portal.Controllers
             }
         }
 
-        private IEnumerable<SelectListItem> PopulateMonth()
+        private static IEnumerable<SelectListItem> PopulateMonth()
         {
             for (var i = 1; i <= 12; i++)
             {
@@ -527,7 +566,7 @@ namespace Notus.Portal.Controllers
             }
         }
 
-        private IEnumerable<SelectListItem> PopulateYear()
+        private static IEnumerable<SelectListItem> PopulateYear()
         {
             for (var i = DateTime.Now.Year; i >= 1950; i--)
             {
@@ -540,7 +579,7 @@ namespace Notus.Portal.Controllers
             }
         }
 
-        private IEnumerable<SelectListItem> PopulateGender()
+        private static IEnumerable<SelectListItem> PopulateGender()
         {
             return (new[]
             {
@@ -562,6 +601,18 @@ namespace Notus.Portal.Controllers
             }).ToList();
         }
 
+
+        public static DateTime SelectedDateTime(string day, string month, string year)
+        {
+            try
+            {
+                return DateTime.Parse(month + "/" + day + "/" + year);
+            }
+            catch
+            {
+                return DateTime.MinValue;
+            }
+        }
         #endregion
     }
 }

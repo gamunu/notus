@@ -55,3 +55,15 @@ visualizeControllers.controller('VisualizeHomeController', [
 
     }
 ]);
+
+
+var visualizeControllers = angular.module('AccountControllers', []);
+
+visualizeControllers.controller('AccountHomeController', [
+    '$scope', '$http', '$timeout', '$interval',
+    function ($scope, $http, $timeout, $interval) {
+        console.log('AccountHomeController');
+
+
+    }
+]);

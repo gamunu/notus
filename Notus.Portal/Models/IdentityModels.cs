@@ -25,7 +25,7 @@ namespace Notus.Portal.Models
         public string LastName { get; set; }
         public string Country { get; set; }
         public string Gender { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

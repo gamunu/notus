@@ -221,20 +221,6 @@ namespace Notus.Portal.Migrations
 
             context.Countries.AddOrUpdate(e => e.Id, countries);
 
-            context.Users.AddOrUpdate(e => e.Id, new ApplicationUser
-            {
-                FirstName = "Gamunu",
-                LastName = "Balagalla",
-                Email = "gamunuud@gmail.com",
-                PhoneNumberConfirmed = true,
-                PhoneNumber = "94779226230",
-                Country = "LK",
-                EmailConfirmed = true,
-                PasswordHash = new PasswordHasher().HashPassword("knight"),
-                UserName = "Gamunu",
-                BirthDate = DateTime.Now
-            });
-
             var causes = new[]
             {
                 new Cause {Name = "Neoplasms"},

@@ -2,7 +2,7 @@
 
 
 visualizeApp.config([
-    '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+    '$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         // For any unmatched url, redirect to default
         $urlRouterProvider.otherwise('/');
 
@@ -29,7 +29,7 @@ visualizeApp.config([
             .state(compare);
     }
 ], [
-    'uiSelectConfig', function(uiSelectConfig) {
+    'uiSelectConfig', function (uiSelectConfig) {
         uiSelectConfig.theme = 'bootstrap';
         uiSelectConfig.resetSearchInput = true;
         uiSelectConfig.appendToBody = true;
@@ -38,11 +38,11 @@ visualizeApp.config([
 /**
  * World Map directive
  */
-visualizeApp.directive('worldMap', function($window) {
+visualizeApp.directive('worldMap', function ($window) {
     return {
         restrict: 'EA',
         template: '<div class="map"></div>',
-        link: function($scope, $elem, $attrs) {
+        link: function ($scope, $elem, $attrs) {
             var mapDiv = $elem.find('div')[0];
             var basicChoropleth = new Datamap({
                 element: mapDiv,
@@ -57,7 +57,7 @@ visualizeApp.directive('worldMap', function($window) {
 
             var colors = d3.scale.category10();
 
-            window.setInterval(function() {
+            window.setInterval(function () {
                 basicChoropleth.updateChoropleth({
                     USA: colors(Math.random() * 10),
                     RUS: colors(Math.random() * 100),
@@ -69,7 +69,7 @@ visualizeApp.directive('worldMap', function($window) {
                 });
             }, 2000);
 
-            d3.select(window).on('resize', function() {
+            d3.select(window).on('resize', function () {
                 basicChoropleth.resize();
             });
         }
@@ -79,11 +79,11 @@ visualizeApp.directive('worldMap', function($window) {
 /**
  * 
  */
-visualizeApp.directive('treeMap', function($window) {
+visualizeApp.directive('treeMap', function ($window) {
     return {
         restrict: 'EA',
         template: '<div class="gdb-compare-treemap"></div>',
-        link: function($scope, $elem, $attr) {
+        link: function ($scope, $elem, $attr) {
             var margin = { top: 40, right: 10, bottom: 10, left: 10 },
                 width = 960 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
@@ -93,7 +93,7 @@ visualizeApp.directive('treeMap', function($window) {
             var treemap = d3.layout.treemap()
                 .size([width, height])
                 .sticky(true)
-                .value(function(d) { return d.size; });
+                .value(function (d) { return d.size; });
 
             var div = d3.select('.gdb-compare-treemap')
                 .style('position', 'relative')
@@ -102,22 +102,22 @@ visualizeApp.directive('treeMap', function($window) {
                 .style('left', margin.left + 'px')
                 .style('top', margin.top + 'px');
 
-            d3.json('/Content/json/treemap.json', function(error, root) {
+            d3.json('/Content/json/treemap.json', function (error, root) {
                 var node = div.datum(root).selectAll('.node')
                     .data(treemap.nodes)
                     .enter().append('div')
                     .attr('class', 'node')
                     .attr('data-toggle', 'tooltip')
-                    .attr('title', function(d) { return d.children ? null : d.name; })
+                    .attr('title', function (d) { return d.children ? null : d.name; })
                     .call(position)
-                    .style('background', function(d) { return d.children ? color(d.name) : null; })
-                    .text(function(d) { return d.children ? null : d.name; });
+                    .style('background', function (d) { return d.children ? color(d.name) : null; })
+                    .text(function (d) { return d.children ? null : d.name; });
 
                 $('[data-toggle="tooltip"]').tooltip({ 'container': 'body' });
-                d3.selectAll('input').on('change', function() {
+                d3.selectAll('input').on('change', function () {
                     var value = this.value === 'count'
-                        ? function() { return 1; }
-                        : function(d) { return d.size; };
+                        ? function () { return 1; }
+                        : function (d) { return d.size; };
 
                     node.data(treemap.value(value).nodes)
                         .transition()
@@ -127,10 +127,10 @@ visualizeApp.directive('treeMap', function($window) {
             });
 
             function position() {
-                this.style('left', function(d) { return d.x + 'px'; })
-                    .style('top', function(d) { return d.y + 'px'; })
-                    .style('width', function(d) { return Math.max(0, d.dx - 1) + 'px'; })
-                    .style('height', function(d) { return Math.max(0, d.dy - 1) + 'px'; });
+                this.style('left', function (d) { return d.x + 'px'; })
+                    .style('top', function (d) { return d.y + 'px'; })
+                    .style('width', function (d) { return Math.max(0, d.dx - 1) + 'px'; })
+                    .style('height', function (d) { return Math.max(0, d.dy - 1) + 'px'; });
             }
         }
     };
@@ -142,12 +142,12 @@ visualizeApp.directive('treeMap', function($window) {
  * performs a AND between 'name: $select.search' and 'age: $select.search'.
  * We want to perform a OR.
  */
-visualizeApp.filter('propsFilter', function() {
-    return function(items, props) {
+visualizeApp.filter('propsFilter', function () {
+    return function (items, props) {
         var out = [];
 
         if (angular.isArray(items)) {
-            items.forEach(function(item) {
+            items.forEach(function (item) {
                 var itemMatches = false;
 
                 var keys = Object.keys(props);
@@ -171,4 +171,206 @@ visualizeApp.filter('propsFilter', function() {
 
         return out;
     };
+});
+
+
+var accountModule = angular.module('AccountModule', ['ui.router', 'AccountControllers']);
+
+accountModule.config([
+    '$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+        // For any unmatched url, redirect to default
+        $urlRouterProvider.otherwise('/');
+
+        var home = {
+            name: 'home',
+            url: '/',
+            controller: 'AccountHomeController'
+        };
+
+        $stateProvider
+            .state(home);
+    }
+]);
+
+accountModule.directive('caloriesBurned', function ($window) {
+    return {
+        restrict: 'EA',
+        template: '<div id="calories-burned"></div>',
+        link: function ($scope, $elem, $attr) {
+
+            var width = 250,
+                height = 250,
+                radius = Math.min(width, height) / 2;
+
+            var color = d3.scale.category20();
+
+            var pie = d3.layout.pie()
+                .padAngle(.02)
+                .value(function (d) { return d.oranges; })
+                .sort(null);
+
+            var arc = d3.svg.arc()
+            .innerRadius(radius - 20)
+                .startAngle(function (d) {
+                    return d.data.starta;
+                })
+                .endAngle(function (d) {
+                    return d.data.enda;
+                })
+            .outerRadius(radius)
+            .cornerRadius(20);
+
+
+            var svg = d3.select('#calories-burned').append('svg')
+                .attr('width', '100%')
+                .attr('height', '100%')
+                .attr('viewBox', '0 0 ' + Math.min(width, height) + ' ' + Math.min(width, height))
+                .attr('preserveAspectRatio', 'xMinYMin')
+                .append("g")
+                .attr('transform', 'translate(' + Math.min(width, height) / 2 + ',' + Math.min(width, height) / 2 + ')');
+
+            var text = svg.append("svg:text")
+                .attr("class", "Today")
+                .style("font-size", "20px")
+                .text('1,453 calories burned')
+                .attr('transform', 'translate(-90,0)');
+            var text2 = svg.append("svg:text")
+               .attr("class", "Today")
+               .style("font-size", "10px")
+               .text('Your avg is 2,399 calories')
+               .attr('transform', 'translate(-70,20)');
+
+            d3.json('/Content/json/pie-chart.json', function (error, data) {
+                var path = svg.datum(data).selectAll('path')
+                    .data(pie)
+                    .enter().append('path')
+                    .attr('fill', function (d, i) { return color(i); })
+                    .attr('d', arc);
+            });
+
+        }
+    }
+});
+
+
+accountModule.directive('steps', function ($window) {
+    return {
+        restrict: 'EA',
+        template: '<div id="steps"></div>',
+        link: function ($scope, $elem, $attr) {
+
+            console.log($scope);
+
+            var width = 250,
+                height = 250,
+                radius = Math.min(width, height) / 2;
+
+            var color = d3.scale.category20();
+
+            var pie = d3.layout.pie()
+                .padAngle(.02)
+                .value(function (d) { return d.oranges; })
+                .sort(null);
+
+            var arc = d3.svg.arc()
+            .innerRadius(radius - 20)
+                .startAngle(function (d) {
+                    return d.data.starta;
+                })
+                .endAngle(function (d) {
+                    return d.data.enda;
+                })
+            .outerRadius(radius)
+            .cornerRadius(20);
+
+
+            var svg = d3.select('#steps').append('svg')
+                .attr('width', '100%')
+                .attr('height', '100%')
+                .attr('viewBox', '0 0 ' + Math.min(width, height) + ' ' + Math.min(width, height))
+                .attr('preserveAspectRatio', 'xMinYMin')
+                .append("g")
+                .attr('transform', 'translate(' + Math.min(width, height) / 2 + ',' + Math.min(width, height) / 2 + ')');
+
+            var text = svg.append("svg:text")
+                .attr("class", "Today")
+                .style("font-size", "20px")
+                .text('0 steps today')
+                .attr('transform', 'translate(-90,0)');
+            var text2 = svg.append("svg:text")
+               .attr("class", "Today")
+               .style("font-size", "10px")
+               .text('Your average is 6,000 steps')
+               .attr('transform', 'translate(-70,20)');
+
+            d3.json('/Content/json/steps.json', function (error, data) {
+                var path = svg.datum(data).selectAll('path')
+                    .data(pie)
+                    .enter().append('path')
+                    .attr('fill', function (d, i) { return color(i); })
+                    .attr('d', arc);
+            });
+
+        }
+    }
+});
+
+accountModule.directive('activeTime', function ($window) {
+    return {
+        restrict: 'EA',
+        template: '<div id="active-time"></div>',
+        link: function ($scope, $elem, $attr) {
+
+            var width = 250,
+                height = 250,
+                radius = Math.min(width, height) / 2;
+
+            var color = d3.scale.category20();
+
+            var pie = d3.layout.pie()
+                .padAngle(.02)
+                .value(function (d) { return d.oranges; })
+                .sort(null);
+
+            var arc = d3.svg.arc()
+            .innerRadius(radius - 20)
+                .startAngle(function (d) {
+                    return d.data.starta;
+                })
+                .endAngle(function (d) {
+                    return d.data.enda;
+                })
+            .outerRadius(radius)
+            .cornerRadius(20);
+
+
+            var svg = d3.select('#active-time').append('svg')
+                .attr('width', '100%')
+                .attr('height', '100%')
+                .attr('viewBox', '0 0 ' + Math.min(width, height) + ' ' + Math.min(width, height))
+                .attr('preserveAspectRatio', 'xMinYMin')
+                .append("g")
+                .attr('transform', 'translate(' + Math.min(width, height) / 2 + ',' + Math.min(width, height) / 2 + ')');
+
+            var text = svg.append("svg:text")
+                .attr("class", "Today")
+                .style("font-size", "20px")
+                .text('1 min today')
+                .attr('transform', 'translate(-90,0)');
+            var text2 = svg.append("svg:text")
+               .attr("class", "Today")
+               .style("font-size", "10px")
+               .text('59 min to goal')
+               .attr('transform', 'translate(-70,20)');
+
+            d3.json('/Content/json/steps.json', function (error, data) {
+                var path = svg.datum(data).selectAll('path')
+                    .data(pie)
+                    .enter().append('path')
+                    .attr('fill', function (d, i) { return color(i); })
+                    .attr('d', arc);
+            });
+
+        }
+    }
 });
