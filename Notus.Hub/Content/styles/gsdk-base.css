@@ -1,0 +1,206 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: "Ebrima","Nirmala UI","Gadugi","Meiryo UI","Khmer UI","Tunga","Lao UI","Raavi","Iskoola Pota","Latha","Leelawadee","Malgun Gothic","Estrangelo Edessa","Mongolian Baiti","MV Boli","Myanmar Text","Cambria Math";
+    padding-top: 80px;
+}
+
+/*   EXTRA SHIT  */
+
+.main {
+    position: relative;
+    overflow: auto;
+    padding-bottom: 88px; /* this needs to be bigger than footer height*/
+    min-height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+}
+
+/* Account Sections */
+
+.person {
+    margin-right: 36px;
+}
+
+    .person:focus {
+        outline-style: none;
+        border-color: #000;
+    }
+
+    .person.person-large {
+        width: 210px;
+        height: 210px;
+    }
+
+
+        .person.person-large .person-graphic {
+            width: 200px;
+            height: 200px;
+        }
+
+    .person .person-graphic {
+        display: block;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+    }
+
+.page-header {
+    border-bottom: none;
+}
+
+    .page-header .headline {
+        clear: none;
+        margin-top: 45px;
+        font-weight: 200;
+        font-size: 3.875rem;
+        line-height: 5rem;
+        margin-bottom: 0;
+    }
+
+    .page-header p.subtitle {
+        line-height: 1.5rem;
+        font-size: 1.25rem;
+        padding-bottom: 8px;
+        font-weight: 400;
+    }
+
+.section {
+    margin-bottom: 42px;
+    margin-top: 42px;
+}
+
+    .section .section-header {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #E6E6E6;
+        margin-bottom: 32px;
+    }
+
+    .section .section-title {
+        display: block;
+        margin-top: 0;
+        margin-bottom: 0;
+        color: #000;
+        padding-bottom: 2.3632px;
+        padding-top: 2.3632px;
+    }
+
+
+.section-title a, .section-title a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+
+.section ol, ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: outside none none;
+}
+
+.section ul li, ol li {
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+.section .image-list div {
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.section .image-list i {
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    border-radius: 50%;
+    background-size: 15px auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.section .image-list .walking {
+    background-image: url('../img/Walking-32.png');
+    background-color: #FF3D00;
+    color: rgba(255, 61, 0, 0.3);
+    stroke: #FF3D00;
+}
+
+.section .image-list .running {
+    background-image: url('../img/Running-32.png');
+    background-color: #9C27B0;
+    color: rgba(142, 36, 170, 0.3);
+    stroke: #9C27B0;
+}
+
+.section .image-list .cycling {
+    background-image: url('../img/TimeTrialBiking-32.png');
+    background-color: #00BCD4;
+    color: rgba(0, 188, 212, 0.3);
+    stroke: #00BCD4;
+}
+
+.section .image-list .inactive {
+    background-image: url('../img/Inactive.png');
+    background-color: #546E7A;
+    color: rgba(84, 110, 122, 0.3);
+    stroke: #546E7A;
+}
+
+/* footer */
+
+.footer {
+    background-color: #EEEEEE;
+    clear: both;
+    height: 88px;
+    margin-top: -88px; /*negative value of footer height */
+    padding-top: 20px;
+    position: relative;
+}
+
+/* Hide spinner in input elements */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* style timepicker*/
+.timepicker .btn.btn-link {
+    padding: 0;
+    margin: 0;
+}
+
+.select .btn:hover:not(.btn-link):not(.btn-flat):not(.btn-fab) {
+    box-shadow: none;
+}
+
+.select .btn-default-focus {
+    box-shadow: none;
+    color: #333;
+    outline: none;
+    background-color: transparent;
+}
+
+
+/*bubble*/
+
+.bubble {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+   /* margin: 1px 0px -8px;*/
+    position: relative;
+    background-color: #546E7A;
+    color: rgba(84, 110, 122, 0.3);
+    stroke: #546E7A;
+}

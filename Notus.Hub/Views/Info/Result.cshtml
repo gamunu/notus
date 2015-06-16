@@ -1,0 +1,17 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+}
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h1>We collected..</h1>
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+        @ViewBag.Confidance;
+        <div class="col-md-12">
+            @ViewBag.Results;
+        </div>
+    </div>
+</div>

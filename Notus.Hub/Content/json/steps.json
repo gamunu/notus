@@ -1,0 +1,23 @@
+﻿[
+    {
+        "label": "Hello2",
+        "endAngle": 0.5,
+        "startAngle": 0.3,
+        "value": 232,
+        "color": "#9C27B0"
+    },
+    {
+        "label": "Hello3",
+        "endAngle": 0.8,
+        "startAngle": 0.5,
+        "value": 232,
+        "color": "#00BCD4"
+    },
+    {
+        "label": "Hello1",
+        "endAngle": 0.3,
+        "startAngle": 0,
+        "value": 232,
+        "color": "#FF3D00"
+    }
+]

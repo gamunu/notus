@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notus.Portal", "Notus.Portal\Notus.Portal.csproj", "{9B8CFC51-D611-4A5C-B9B7-CEC272F5CE08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notus.Hub", "Notus.Hub\Notus.Hub.csproj", "{9B8CFC51-D611-4A5C-B9B7-CEC272F5CE08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

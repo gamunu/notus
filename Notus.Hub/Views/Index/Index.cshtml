@@ -1,0 +1,73 @@
+﻿@using Notus.Hub.Models
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-1">
+        <div id="carousel">
+            <!--
+            IMPORTANT - This carousel can have a special class for a smooth transition "gsdk-transition". Since javascript cannot be overwritten, if you want to use it, you can use the bootstrap.js or bootstrap.min.js from the GSDKit or you can open your bootstrap.js file, search for "emulateTransitionEnd(600)" and change it with "emulateTransitionEnd(1200)"
+
+            -->
+            <div>
+                <div class="col-md-12">
+                    <img class="img-responsive" src="/Content/img/carousel_blue.png">
+                </div>
+                <p>
+                    dsjfkadsfjksd
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <!-- front page login starts -->
+        <div id="loginForm">
+            @using (Html.BeginForm("Index", "Index", new { ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Log in to your Notus account.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "sr-only" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "someone@example.com" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "sr-only" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Log in" class="btn btn-primary" />
+                </div>
+                <p>
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account")
+                </p>
+            }
+
+            <div id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </div>
+            <p>
+                Don't have a Notus account? @Html.ActionLink("Sign up now", "Register", "Account")
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="space"></div>
+
+<!--/ .container -->

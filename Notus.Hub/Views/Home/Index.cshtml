@@ -1,0 +1,342 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+}
+
+<div class="row" ng-controller="AccountHomeController">
+
+    <script type="text/ng-template" id="logWeightModel.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Log your weight</h4>
+        </div>
+        <div class="modal-body">
+            <div ng-form name="logweight">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div ui-select ng-model="type" class="select" title="Choose an activity" ng-required="true">
+                            <div ui-select-match placeholder="Select an activity">{{$select.selected.Name}}</div>
+                            <div ui-select-choices repeat="cause.Name as cause in causes | propsFilter: {Name: $select.search}">
+                                <div ng-bind-html="cause.Name | highlight: $select.search"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="date" is-open="opened" max-date="maxDate" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-1x fa-calendar-o"></i></button>
+                            </span>
+                        </p>
+                        <span class="text-danger" ng-show="logweight.date.$error.required">Invalid date</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12" ng-required="true">
+                        <timepicker class="timepicker" ng-model="time"></timepicker>
+                        <span class="text-danger" ng-show="logweight.time.$error.required">Invalid time</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div class="input-group">
+                            <label class="input-group-addon">kg</label>
+                            <input class="form-control" min="1" max="500" name="weight" type="number" ng-model="weight" required>
+                        </div>
+                        <span class="text-danger" ng-show="logweight.weight.$error.required || logweight.weight.$error.max || logweight.weight.$error.min">Enter a value between 1 and 500.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" ng-click="ok()">Save</button>
+        </div>
+    </script>
+
+
+    <script type="text/ng-template" id="addActivityModel.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Add activity</h4>
+        </div>
+        <div class="modal-body">
+            <div ng-form name="activity">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div ui-select ng-model="type" class="select" title="Choose an activity" ng-required="true">
+                            <div ui-select-match placeholder="Select an activity">{{$select.selected.Name}}</div>
+                            <div ui-select-choices repeat="cause.Name as cause in causes | filter: {name: $select.search}">
+                                <div ng-bind-html="cause.Name | highlight: $select.search"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="date" is-open="opened" max-date="maxDate" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-1x fa-calendar-o"></i></button>
+                            </span>
+                        </p>
+                        <span class="text-danger" ng-show="activity.date.$error.required">Invalid date</span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12" ng-required="true">
+                        <timepicker class="timepicker" ng-model="time"></timepicker>
+                        <span class="text-danger" ng-show="activity.time.$error.required">Invalid time</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div class="input-group">
+                            <label class="input-group-addon">min</label>
+                            <input class="form-control" name="duration" type="number" ng-model="duration" required>
+                        </div>
+                        <span class="text-danger" ng-show="activity.duration.$error.required || activity.duration.$error.max || activity.duration.$error.min">Bad duration</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div class="input-group">
+                            <label class="input-group-addon">steps</label>
+                            <input class="form-control" min="0" max="50000" name="steps" step="1" type="number" ng-model="steps" required>
+                        </div>
+                        <span class="text-danger" ng-show="activity.steps.$error.required || activity.steps.$error.max || activity.distance.$error.min">Enter a value between 0 and 50000.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div class="input-group">
+                            <label class="input-group-addon">km</label>
+                            <input class="form-control" min="0" max="500" name="distance" type="number" ng-model="distance" required>
+                        </div>
+                        <span class="text-danger" ng-show="activity.distance.$error.required || activity.distance.$error.max || activity.distance.$error.min">Enter a value between 0.1 and 50000.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div class="input-group">
+                            <label class="input-group-addon">calories</label>
+                            <input class="form-control" min="0" max="10000" name="calories" ng-model="calories" type="number" required>
+                        </div>
+                        <span class="text-danger" ng-show="activity.calories.$error.required || activity.calories.$error.max || activity.calories.$error.min">Enter a value between 1 and 10000.</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" ng-click="ok()">Save</button>
+        </div>
+    </script>
+
+
+
+    <div class="col-md-10 col-md-offset-1">
+        <header class=" page-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#" class="person person-large pull-left">
+                        <img src="https://randomuser.me/api/portraits/med/men/84.jpg" alt="Circle Image" class="person-graphic">
+                    </a>
+                    <h1 class="headline">Welcome, Gamunu</h1>
+                    <p class="subtitle">Here's where you manage your account</p>
+                    <p class="user-email">gamunuud@outlook.com</p>
+                    <p class="view-inbox">
+                        Looking for your Messages? <a href="#">View inbox</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 pull-right">
+                    <div class="dropdown" dropdown>
+                        <button class="btn btn-default btn-simple dropdown-toggle" type="button" id="dropdownMenu1" dropdown-toggle>
+                            <i class="fa fa-cogs fa-3x"></i>
+                            <span class="caret"></span>
+
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="addActivity()">Add Activity</a></li>
+
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="logWeight()">Log your weight</a></li>
+
+                            <li role="presentation">@Html.ActionLink("Settings", "Settings")</li>
+
+                            <li role="presentation" class="divider"></li>
+
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Help</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class=" timeline">
+                        <li ng-repeat="day in timelinedata.Groups">
+                            <div class="timeline-badge info">
+                                <i class="fa fa-hand-o-right"></i>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">{{day.StartTime | amCalendar}}</h4>
+                                    <p>
+                                        <small class="text-muted"><i class="fa fa-clock-o"></i></small>
+                                    </p>
+                                </div>
+                                <div class="timeline-body">
+                                    <div ng-repeat="activity in day.Activities">
+                                        <div class="bubble"></div>{{activity.Name}}
+                                        <p>{{activity.StartTime | amDateFormat:'h:mm a'}}</p>
+                                        <p>Steps {{activity.Steps}}</p>
+                                        <p>Calories {{activity.Energy}}</p>
+                                        <p>Active Time {{activity.StartTime | amDifference : activity.EndTime : 'hours' }}</p>
+                                        <p>Est. distance {{activity.Distance|number:1}} km</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <section class="col-md-4 section">
+                            <header class="section-header">
+                                <h3 class="section-title text-maxlines-1">
+                                    <a href="#">Active Time</a>
+                                </h3>
+                            </header>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div donut-chart model="timedata" header="timeheader" subheader="timesubheader"></div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-md-4 section">
+                            <header class="section-header">
+                                <h3 class="section-title text-maxlines-1">
+                                    <a href="#">Calories burned</a>
+                                </h3>
+                            </header>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div donut-chart model="caloriesdata" header="caloriesheader" subheader="caloriessubheader"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="image-list">
+                                        <div>
+                                            <i class="walking"></i>80 cal
+                                        </div>
+                                        <div>
+                                            <i class="running"></i>100 cal
+                                        </div>
+                                        <div>
+                                            <i class="cycling"></i>147 cal
+                                        </div>
+                                        <div>
+                                            <i class="inactive"></i>1126 Inactive cal
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-md-4 section">
+                            <header class="section-header">
+                                <h3 class="section-title text-maxlines-1">
+                                    <a href="#">Steps</a>
+                                </h3>
+                            </header>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div donut-chart model="stepssdata" header="stepsheader" subheader="stepssubheader"></div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div tabset>
+                                <div tab heading="Day">
+                                    <section class="section">
+                                        <header class="section-header">
+                                            <div class="col-md-4 pull-right">
+                                                <div ui-select ng-model="measurment" class="select" title="Choose an activity" on-select="onMeasurment($item, $model)" allow-clear="false">
+                                                    <div ui-select-match placeholder=" select an activity">{{$select.selected}}</div>
+                                                    <div ui-select-choices repeat="m as m in measurments | filter: $select.search">
+                                                        <div ng-bind-html="m | highlight: $select.search"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h2 class="section-title text-maxlines-1">
+                                                {{measurment}}
+                                            </h2>
+                                        </header>
+                                        <div bar-chart model="histroydata" measurment="measurment"></div>
+                                    </section>
+                                </div>
+
+                                <div tab heading="Week">
+                                    <section class="section">
+                                        Week
+                                    </section>
+                                </div>
+                                <div tab heading="Month">
+                                    <section class="section">
+                                        Month
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <section class="col-md-6 section">
+                            <header class="section-header">
+                                <h2 class="section-title text-maxlines-1">
+                                    <a href="#">Your info</a>
+                                </h2>
+                            </header>
+                            <ul>
+                                <li><a href="@Url.Action("Index", "Info")">Edit your personal health profile</a></li>
+                                <li><a href="#">Edit your personal info</a></li>
+                                <li><a href="#">Manage your sign-in email address</a></li>
+                                <li><a href="#">Change marketing preferences</a></li>
+                                <li><a href="#">Get account help</a></li>
+                            </ul>
+                        </section>
+                        <section class="col-md-6 section">
+                            <header class="section-header">
+                                <h2 class="section-title text-maxlines-1">
+                                    <a href="#">Security & privacy</a>
+                                </h2>
+                            </header>
+                            <ul>
+                                <li><a href="#">Change password</a></li>
+                                <li><a href="#">Check recent activity</a></li>
+                                <li><a href="#">Manage advanced security</a></li>
+                            </ul>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

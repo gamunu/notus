@@ -1,0 +1,34 @@
+﻿@model Notus.Hub.Models.BloodTestViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h1>Upload your blood test results</h1>
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+        @using (Html.BeginForm("Upload", "Info", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true);
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(m => m.ImageUpload, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.ImageUpload, new { type = "file", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ImageUpload, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-fill">Upload Results</button>
+        }
+
+      @*  <div class="row">
+            @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.FirstName, new Dictionary<string, object> { { "class", "form-control" }, { "title", "Your name will appear to your friends, co-workers, family, and others in the Notus services you use" }, { "data-toggle", "tooltip" }, { "data-placement", "right" } })
+            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+        </div>*@
+    </div>
+</div>
