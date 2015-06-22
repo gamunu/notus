@@ -32,6 +32,13 @@
     <WarningLevel>4</WarningLevel>
     <PublishDatabaseSettings>
       <Objects>
+        <ObjectGroup Name="DefaultConnection-Deployment" Order="1" xmlns="">
+          <Destination Path="Data Source=mssql1.gear.host%3bUser ID=notus%3bPassword=Ve4aO_P7-P11" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=SRIL-CNU1393V4P%3bInitial Catalog=Notus%3bIntegrated Security=True%3bConnect Timeout=15%3bEncrypt=False%3bTrustServerCertificate=False%3bApplicationIntent=ReadWrite%3bMultiSubnetFailover=False" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\DefaultConnection-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
       </Objects>
     </PublishDatabaseSettings>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -255,6 +262,7 @@
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RiskFactorsController.cs" />
     <Compile Include="Controllers\UserFitnessActivitiesController.cs" />
     <Compile Include="Controllers\VisualizeController.cs" />
@@ -274,6 +282,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InfoViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ReportsModels.cs" />
     <Compile Include="Models\VisualizeModels.cs" />
     <Compile Include="Models\VisualizeViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -281,14 +290,37 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\img\avatar.jpg" />
+    <Content Include="Content\img\carousel_blue.png" />
+    <Content Include="Content\img\carousel_green.png" />
+    <Content Include="Content\img\carousel_orange.png" />
+    <Content Include="Content\img\carousel_red.png" />
+    <Content Include="Content\img\Inactive.png" />
+    <Content Include="Content\img\logo_small.png" />
+    <Content Include="Content\img\mask.png" />
+    <Content Include="Content\img\Running-32.png" />
+    <Content Include="Content\img\TimeTrialBiking-32.png" />
+    <Content Include="Content\img\Walking-32.png" />
     <Content Include="Content\json\bar.js" />
+    <Content Include="Content\js\angular-animate.min.js" />
     <Content Include="Content\js\angular-moment.js" />
+    <Content Include="Content\js\angular-route.min.js" />
+    <Content Include="Content\js\angular-sanitize.min.js" />
+    <Content Include="Content\js\angular-ui-router.min.js" />
+    <Content Include="Content\js\angular.min.js" />
+    <Content Include="Content\js\bindonce.js" />
+    <Content Include="Content\js\custom.js" />
     <Content Include="Content\js\d3.js" />
+    <Content Include="Content\js\fullcalendar.js" />
+    <Content Include="Content\js\jquery-2.1.4.min.js" />
     <Content Include="Content\js\material.js" />
     <Content Include="Content\js\moment.js" />
     <Content Include="Content\js\ripples.js" />
+    <Content Include="Content\js\select.min.js" />
+    <Content Include="Content\js\slider.js" />
+    <Content Include="Content\js\topojson.min.js" />
     <Content Include="Content\js\ui-bootstrap-tpls-0.13.0.js" />
-    <Content Include="Content\js\bindonce.js" />
     <Content Include="Content\styles\bootstrap.css" />
     <Content Include="Content\styles\ct-navbar.css" />
     <Content Include="Content\styles\font-awesome.css" />
@@ -300,35 +332,12 @@
     <Content Include="Content\styles\material.css" />
     <Content Include="Content\styles\ripples.css" />
     <Content Include="Content\styles\select.css" />
-    <Content Include="Content\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\img\carousel_blue.png" />
-    <Content Include="Content\img\carousel_green.png" />
-    <Content Include="Content\img\carousel_orange.png" />
-    <Content Include="Content\img\carousel_red.png" />
-    <Content Include="Content\img\logo_small.png" />
-    <Content Include="Content\json\treemap.json" />
-    <Content Include="Content\js\angular-animate.min.js" />
-    <Content Include="Content\js\angular-route.min.js" />
-    <Content Include="Content\js\angular-sanitize.min.js" />
-    <Content Include="Content\js\angular-ui-router.min.js" />
-    <Content Include="Content\js\angular.min.js" />
-    <Content Include="Content\js\custom.js" />
-    <Content Include="Content\js\fullcalendar.js" />
-    <Content Include="Content\js\jquery-2.1.4.min.js" />
-    <Content Include="Content\js\select.min.js" />
-    <Content Include="Content\js\slider.js" />
-    <Content Include="Content\js\topojson.min.js" />
     <Content Include="Content\styles\timeline.css" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\controllers.js" />
     <Content Include="Scripts\charts\datamaps.all.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\json\pie-chart.json" />
-    <Content Include="Content\json\steps.json" />
-    <Content Include="Notus.pfx" />
-    <Content Include="Notus.snk" />
     <Content Include="x64\liblept168.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -361,14 +370,20 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\json\blood.json" />
+    <Content Include="Content\json\pie-chart.json" />
+    <Content Include="Content\json\steps.json" />
+    <Content Include="Content\json\treemap.json" />
+    <Content Include="Content\json\blood - bk.json" />
+    <Content Include="Content\json\cho.json" />
     <None Include="Properties\PublishProfiles\notus - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\notus - Web Deploy.pubxml" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\charts\compare.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -441,19 +456,13 @@
     <Content Include="Views\Info\Index.cshtml" />
     <Content Include="Views\Info\Result.cshtml" />
     <Content Include="Views\Info\Upload.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
     <None Include="Views\Visualize\Index.cshtml" />
     <Content Include="Views\Visualize\TreeMap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
-    <Content Include="Content\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\fonts\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201506050633414_Initial.resx">
@@ -468,10 +477,11 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Notus.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

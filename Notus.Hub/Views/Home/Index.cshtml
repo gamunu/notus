@@ -145,7 +145,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <a href="#" class="person person-large pull-left">
-                        <img src="https://randomuser.me/api/portraits/med/men/84.jpg" alt="Circle Image" class="person-graphic">
+                        <img src="/Content/img/avatar.jpg" alt="Circle Image" class="person-graphic">
                     </a>
                     <h1 class="headline">Welcome, Gamunu</h1>
                     <p class="subtitle">Here's where you manage your account</p>
@@ -184,6 +184,63 @@
 
         <div class="col-md-12">
             <div class="row">
+                <section class="col-md-4 section">
+                    <header class="section-header">
+                        <h3 class="section-title text-maxlines-1">
+                            <a href="#">Active Time</a>
+                        </h3>
+                    </header>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div donut-chart model="timedata" header="timeheader" subheader="timesubheader"></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="col-md-4 section">
+                    <header class="section-header">
+                        <h3 class="section-title text-maxlines-1">
+                            <a href="#">Calories burned</a>
+                        </h3>
+                    </header>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div donut-chart model="caloriesdata" header="caloriesheader" subheader="caloriessubheader"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="image-list">
+                                <div>
+                                    <i class="walking"></i>80 cal
+                                </div>
+                                <div>
+                                    <i class="running"></i>100 cal
+                                </div>
+                                <div>
+                                    <i class="cycling"></i>147 cal
+                                </div>
+                                <div>
+                                    <i class="inactive"></i>1126 Inactive cal
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="col-md-4 section">
+                    <header class="section-header">
+                        <h3 class="section-title text-maxlines-1">
+                            <a href="#">Steps</a>
+                        </h3>
+                    </header>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div donut-chart model="stepssdata" header="stepsheader" subheader="stepssubheader"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="row">
                 <div class="col-md-4">
                     <ul class=" timeline">
                         <li ng-repeat="day in timelinedata.Groups">
@@ -213,64 +270,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row">
-                        <section class="col-md-4 section">
-                            <header class="section-header">
-                                <h3 class="section-title text-maxlines-1">
-                                    <a href="#">Active Time</a>
-                                </h3>
-                            </header>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div donut-chart model="timedata" header="timeheader" subheader="timesubheader"></div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="col-md-4 section">
-                            <header class="section-header">
-                                <h3 class="section-title text-maxlines-1">
-                                    <a href="#">Calories burned</a>
-                                </h3>
-                            </header>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div donut-chart model="caloriesdata" header="caloriesheader" subheader="caloriessubheader"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="image-list">
-                                        <div>
-                                            <i class="walking"></i>80 cal
-                                        </div>
-                                        <div>
-                                            <i class="running"></i>100 cal
-                                        </div>
-                                        <div>
-                                            <i class="cycling"></i>147 cal
-                                        </div>
-                                        <div>
-                                            <i class="inactive"></i>1126 Inactive cal
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="col-md-4 section">
-                            <header class="section-header">
-                                <h3 class="section-title text-maxlines-1">
-                                    <a href="#">Steps</a>
-                                </h3>
-                            </header>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div donut-chart model="stepssdata" header="stepsheader" subheader="stepssubheader"></div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div tabset>
                                 <div tab heading="Day">
                                     <section class="section">

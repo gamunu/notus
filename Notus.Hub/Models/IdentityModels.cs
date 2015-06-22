@@ -56,6 +56,8 @@ namespace Notus.Hub.Models
         public DbSet<UserWeight> UserWeights { get; set; }
         public DbSet<UserFitnessActivity> UserFitnessActivities { get; set; }
 
+        public DbSet<BloodReport> BloodReports { get; set; } 
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

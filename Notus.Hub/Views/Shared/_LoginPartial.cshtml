@@ -1,20 +1,17 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
+
     <li>
-        <a href="@Url.Action("Index", "Calender")">
-            <i class="fa fa-calendar"></i>
-            My Calender
-        </a>
+        @Html.ActionLink("Info", "Index", "Info", null, new { title = "Manage" })
     </li>
     <li>
-        <a href="#">
-            Messages
-        </a>
+        @Html.ActionLink("Reports", "Index", "Reports", null, new { title = "Manage" })
     </li>
     <li class="dropdown" dropdown>
         <a href="#" class="dropdown-toggle" dropdown-toggle>
-            @User.Identity.GetUserName()
+            @* @User.Identity.GetUserName()*@
+            Gamunu
         </a>
         <ul class="dropdown-menu">
             <li>

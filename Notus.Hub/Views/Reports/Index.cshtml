@@ -1,0 +1,67 @@
+﻿@using Notus.Hub.Models
+@model dynamic
+
+@{
+    ViewBag.Title = "Reports";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <!-- Single button -->
+            <div class="btn-group" dropdown is-open="status.isopen">
+                <button type="button" class="btn btn-info btn-raised dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                    Upload Reports <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+
+                    <li><a href="@Url.Action("Upload", "Info")">Blood Report</a></li>
+                    <li><a href="#">Cholesterol Report</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Blood Reports</div>
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            @foreach (BloodReport report in ViewBag.BloodReports)
+                            {
+                                <tr>
+                                    <td><i class="pull-right fa fa-edit"></i> Uploaded on @report.Uploaded.ToString("yyyy-M-d dddd") - Blood Report, Report generated date @report.ReportDate.ToString("yyyy-MM-dd")</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Cholesterol Reports</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td><i class="pull-right fa fa-edit"></i> Today, 1:00 - Cholesterol Report.</td>
+                            </tr>
+                            <tr>
+                                <td><i class="pull-right fa fa-edit"></i> Today, 12:23 - Cholesterol Report.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -136,11 +136,19 @@ visualizeControllers.controller('AccountHomeController',
         /* Get data for Active time,Calories burned,Steps */
         $http.get('/api/fit/activities/total/minutes').success(function (data) {
             $scope.timedata = data;
-            $scope.timeheader = (data.Goal - data.Total) + ' min to goal';
+
+            if (data.Total >= data.Goal) {
+                $scope.timeheader = 'Gloal';
+            } else {
+                $scope.timeheader = (data.Goal - data.Total) + ' min to goal';
+            }
             $scope.timesubheader = data.Total + ' min today';
         });
         $http.get('/api/fit/activities/total/energy').success(function (data) {
             $scope.caloriesdata = data;
+
+
+
             $scope.caloriesheader = '1,453 calories burned';
             $scope.caloriessubheader = 'Your avg is 2,399 calories';
 
@@ -236,3 +244,11 @@ visualizeControllers.controller('LogWeightCtrl', function ($scope, $modalInstanc
     $scope.date = new Date();
     $scope.type = null;
 });
+
+visualizeControllers.controller('InfoController',
+    function ($scope, $modal, $log, $http) {
+
+        $http.get('/Content/json/blood.json').success(function (data) {
+            $scope.blooddata = data;
+        });
+    });

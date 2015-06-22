@@ -93,13 +93,12 @@ namespace Notus.Hub.Controllers
         // GET: api/UserFitnessActivities
         public async Task<object> Only()
         {
-            var today = DateTime.Today.ToUniversalTime();
-            var endoftheday = today.AddMinutes(1440);
+            int today = DateTime.UtcNow.Day;
+
             return new
             {
                 //Data
-                Data = _userFitnessActivities.Where(e => e.StartTime >= today)
-                .Where(e => e.EndTime <= endoftheday)
+                Data = _userFitnessActivities.Where(e => e.StartTime.Day == today)
                     .GroupBy(g => g.ActivityId, s => new
                     {
                         s.Distance,
@@ -109,8 +108,7 @@ namespace Notus.Hub.Controllers
                         s.EndTime
                     }).ToList(),
                 //Total
-                Total = await _userFitnessActivities.Where(e => e.StartTime >= today)
-                .Where(e => e.EndTime <= endoftheday)
+                Total = await _userFitnessActivities.Where(e => e.StartTime.Day == today)
                     .GroupBy(x => 1)
                     .Select(activity => new
                     {
@@ -130,8 +128,7 @@ namespace Notus.Hub.Controllers
         // GET: api/UserFitnessActivities
         public async Task<object> Only(string type)
         {
-            DateTime today = DateTime.Today.ToUniversalTime();
-            DateTime endoftheday = today.AddMinutes(1440);
+            int today = DateTime.UtcNow.Day;
 
             Expression<Func<UserFitnessActivity, object>> typeEt = s => new
             {
@@ -172,12 +169,10 @@ namespace Notus.Hub.Controllers
             return new
             {
                 //Data
-                Data = _userFitnessActivities.Where(e => e.StartTime >= today)
-                .Where(e => e.EndTime <= endoftheday)
+                Data = _userFitnessActivities.Where(e => e.StartTime.Day == today)
                     .GroupBy(g => g.ActivityId, typeEt).ToList(),
                 //Total
-                Total = await _userFitnessActivities.Where(e => e.StartTime >= today)
-                .Where(e => e.EndTime <= endoftheday)
+                Total = await _userFitnessActivities.Where(e => e.StartTime.Day == today)
                     .GroupBy(x => 1)
                     .Select(activity => new
                     {
@@ -299,17 +294,18 @@ namespace Notus.Hub.Controllers
         {
             return new
             {
-                Groups = _userFitnessActivities
+                Groups = _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day)
                     .GroupBy(g => g.ActivityId)
                     .Select(first => first.FirstOrDefault())
                     .Select(act => new
                     {
                         act.Activity.Name,
                         act.ActivityId,
-                        Total = _userFitnessActivities.Where(e => e.ActivityId == act.ActivityId).Sum(d => d.Steps)
+                        Total = _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).Where(e => e.ActivityId == act.ActivityId).Sum(d => d.Steps)
                     }),
-                Total = await _userFitnessActivities.SumAsync(e => e.Steps),
-                Goal = _healthProfile.FitnessGloalSteps
+                Total = await _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).SumAsync(e => e.Steps),
+                Goal = _healthProfile.FitnessGloalSteps,
+                Average = await _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).AverageAsync(e => e.Steps),
             };
         }
 
@@ -319,16 +315,17 @@ namespace Notus.Hub.Controllers
         {
             return new
             {
-                Groups = _userFitnessActivities
+                Groups = _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day)
                     .GroupBy(g => g.ActivityId)
                     .Select(first => first.FirstOrDefault())
                     .Select(act => new
                     {
                         act.Activity.Name,
                         act.ActivityId,
-                        Total = _userFitnessActivities.Where(e => e.ActivityId == act.ActivityId).Sum(d => d.Energy)
+                        Total = _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).Where(e => e.ActivityId == act.ActivityId).Sum(d => d.Energy)
                     }),
-                Total = await _userFitnessActivities.SumAsync(e => e.Energy),
+                Total = await _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).SumAsync(e => e.Energy),
+                Average = await _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).AverageAsync(e => e.Energy),
                 Goal = _healthProfile.FitnessGloalCaloriesBurned
             };
         }
@@ -339,7 +336,7 @@ namespace Notus.Hub.Controllers
         {
             return new
             {
-                Groups = _userFitnessActivities
+                Groups = _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day)
                     .GroupBy(g => g.ActivityId)
                     .Select(first => first.FirstOrDefault())
                     .Select(act => new
@@ -347,9 +344,10 @@ namespace Notus.Hub.Controllers
                         act.Activity.Name,
                         act.ActivityId,
                         Total =
-                            _userFitnessActivities.Where(e => e.ActivityId == act.ActivityId).Sum(d => d.Distance)
+                            _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).Where(e => e.ActivityId == act.ActivityId).Sum(d => d.Distance)
                     }),
-                Total = await _userFitnessActivities.SumAsync(e => e.Distance),
+                Total = await _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).SumAsync(e => e.Distance),
+                Average = await _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).AverageAsync(e => e.Distance),
                 Goal = _healthProfile.FitnessGloalDistance
             };
         }
@@ -360,7 +358,7 @@ namespace Notus.Hub.Controllers
         {
             return new
             {
-                Groups = _userFitnessActivities
+                Groups = _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day)
                     .GroupBy(g => g.ActivityId)
                     .Select(first => first.FirstOrDefault())
                     .Select(act => new
@@ -368,10 +366,11 @@ namespace Notus.Hub.Controllers
                         act.Activity.Name,
                         act.ActivityId,
                         Total =
-                            _userFitnessActivities.Where(e => e.ActivityId == act.ActivityId)
+                            _userFitnessActivities.Where(e => e.ActivityId == act.ActivityId).Where(d => d.StartTime.Day == DateTime.UtcNow.Day)
                                 .Sum(c => SqlFunctions.DateDiff("n", c.StartTime, c.EndTime))
                     }),
-                Total = await _userFitnessActivities.SumAsync(c => SqlFunctions.DateDiff("n", c.StartTime, c.EndTime)),
+                Total = await _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).SumAsync(c => SqlFunctions.DateDiff("n", c.StartTime, c.EndTime)),
+                Average = await _userFitnessActivities.Where(d => d.StartTime.Day == DateTime.UtcNow.Day).AverageAsync(c => SqlFunctions.DateDiff("n", c.StartTime, c.EndTime)),
                 Goal = _healthProfile.FitnessGloalDuration
             };
         }

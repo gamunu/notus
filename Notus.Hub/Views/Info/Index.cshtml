@@ -4,10 +4,337 @@
     ViewBag.Title = "Your Health info";
 }
 
-<div class="row">
-    <div class="col-md-12">
+<div class="row" ng-controller="InfoController">
+    <div class=" col-md-12">
         <div class="row">
+            <div class="col-sm-10"><h2>@*@User.Identity.Name*@Gamunu's Helath Profile</h2></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <!--left col-->
+
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">Profile</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Joined</strong></span> 2.13.2014</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Last seen</strong></span> Yesterday</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Real name</strong></span> Joseph Doe</li>
+
+                </ul>
+
+
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+                </ul>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Social Media</div>
+                    <div class="panel-body">
+                        <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+                    </div>
+                </div>
+
+            </div><!--/col-3-->
+            <div class="col-md-9">
+
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Blood Profile</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div area-chart ng-model="blooddata"></div>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">White Blood Cell Count</div>
+                                                        <h5>WBC</h5>
+                                                        <p class="list-group-item-text">
+                                                            10.38 [10^3/uL]
+                                                        </p>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Netutrophils</div>
+                                                        <h5>NEUT</h5>
+                                                        <p class="list-group-item-text">
+                                                        </p>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Lymph</div>
+                                                        <h5>LYMPH</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Mononucleosis</div>
+                                                        <h5>MONO</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Eosinophilia</div>
+                                                        <h5>EO</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Basophil</div>
+                                                        <h5>BASO</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div> <!--//list group-->
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Red blood cells</div>
+                                                        <h5>RBC</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Hemoglobin</div>
+                                                        <h5>HGB</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+
+                                                    <div class="row-content">
+                                                        <div class="least-content">Hematocrit</div>
+                                                        <h5>HCT</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Mean corpuscular volume</div>
+                                                        <h5>MCV</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Mean corpuscular hemoglobin</div>
+                                                        <h5>MCH</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Mean corpuscular hemoglobin concentration</div>
+                                                        <h5>MCHC</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Red Cell Distribution Width</div>
+                                                        <h5>RDW-CV</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Platelet Count</div>
+                                                        <h5>PLT</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!--//panel-body-->
+                            </div> <!--//panel-->
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Lipid Profile</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">mg/dl</div>
+                                                        <h5>Cholesterol Total</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">mg/dl</div>
+                                                        <h5>Cholesterol HDL</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">mg/dl</div>
+                                                        <h5>Triglycerides</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">mg/dl</div>
+                                                        <h5>Cholesterol LDL</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="row-content">
+                                                        <div class="least-content">Ratio</div>
+                                                        <h5>Cholesterol /HDL Ratio</h5>
+                                                        <p class="list-group-item-text">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+                                                            </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <h4>Recent Activity</h4>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+
+                                <tbody>
+                                    <tr>
+                                        <td><i class="pull-right fa fa-edit"></i> Today, 1:00 - Jeff Manzi liked your post.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="pull-right fa fa-edit"></i> Today, 12:23 - Mark Friendo liked and shared your post.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="pull-right fa fa-edit"></i> Today, 12:20 - You posted a new blog entry title "Why social media is".</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="pull-right fa fa-edit"></i> Yesterday - Karen P. liked your post.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="pull-right fa fa-edit"></i> 2 Days Ago - Philip W. liked your post.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="pull-right fa fa-edit"></i> 2 Days Ago - Jeff Manzi liked your post.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/row-->
+        <div class="row">
+
             @Html.ActionLink("Upload blood results", "Upload")
         </div>
-    </div>
-</div>
+    </div> <!--//col-md-12-->
+</div><!--//row-->

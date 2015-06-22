@@ -204,3 +204,26 @@ input[type=number] {
     color: rgba(84, 110, 122, 0.3);
     stroke: #546E7A;
 }
+
+.progress {
+    height: 10px;
+}
+
+
+/* charts */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}

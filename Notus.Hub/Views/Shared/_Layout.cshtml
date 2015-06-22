@@ -20,9 +20,9 @@
                 </button>
 
                 <a class="navbar-brand navbar-brand-logo" href="@Url.Action("Index", "Home")">
-                    <div class=" logo">
+                    @*<div class=" logo">
                         <img src="/Content/img/logo_small.png">
-                    </div>
+                    </div>*@
                     <div class="brand"> Notus </div>
                 </a>
             </div>
@@ -30,26 +30,6 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown" dropdown>
-                        <a href="#" class="dropdown-toggle" dropdown-toggle>
-                            <i class="fa fa-area-chart"></i>
-                            Visualize
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="@Url.Action("Index", "Visualize")#/">
-                                    <i class="fa fa-area-chart"></i>
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Index", "Visualize")#/compare">
-                                    <i class="fa fa-area-chart"></i>
-                                    Global Burden of Disease Compare
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                     @Html.Partial("_LoginPartial")
                 </ul>
             </div><!-- /.navbar-collapse -->

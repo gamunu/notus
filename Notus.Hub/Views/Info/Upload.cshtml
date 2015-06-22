@@ -1,34 +1,121 @@
-﻿@model Notus.Hub.Models.BloodTestViewModel
+﻿@model Notus.Hub.Models.BloodReportViewModel
 
 @{
     ViewBag.Title = "title";
 }
 
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <h1>Upload your blood test results</h1>
-    </div>
-    <div class="col-md-8 col-md-offset-2">
-        @using (Html.BeginForm("Upload", "Info", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true);
+    <div class="col-md-7 col-md-offset-2">
+        <div class="well">
+            @using (Html.BeginForm("Upload", "Info", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+            {
+                <fieldset>
+                    <legend>Upload your blood test results</legend>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
 
-            <div class="row">
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(m => m.ImageUpload, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.ImageUpload, new { type = "file", @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.ImageUpload, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ImageUpload, new { @class = "col-lg-2 control-label" })
+                        <div class="col-lg-10">
+                            <input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
+                            @Html.TextBoxFor(m => m.ImageUpload, new { type = "file", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ImageUpload, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <button type="submit" class="btn btn-primary btn-fill">Upload Results</button>
-        }
+                    <button type="submit" name="upload" class="btn btn-primary btn-fill">Upload Results</button>
 
-      @*  <div class="row">
-            @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
-            @Html.TextBoxFor(m => m.FirstName, new Dictionary<string, object> { { "class", "form-control" }, { "title", "Your name will appear to your friends, co-workers, family, and others in the Notus services you use" }, { "data-toggle", "tooltip" }, { "data-placement", "right" } })
-            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
-        </div>*@
+                    <hr />
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ReportDate, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.ReportDate, new { @Value = (Model == null) ? "" : Model.ReportDate.ToString(), @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Mch, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Mch, new { @Value = (Model == null) ? 0 : Model.Mch, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Mchc, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Mchc, new { @Value = (Model == null) ? 0 : Model.Mchc, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Mcv, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Mcv, new { @Value = (Model == null) ? 0 : Model.Mcv, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Mono, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Mono, new { @Value = (Model == null) ? 0 : Model.Mono, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Neut, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Neut, new { @Value = (Model == null) ? 0 : Model.Neut, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Plt, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Plt, new { @Value = (Model == null) ? 0 : Model.Plt, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Rbc, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Rbc, new { @Value = (Model == null) ? 0 : Model.Rbc, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Rdw, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Rdw, new { @Value = (Model == null) ? 0 : Model.Rdw, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Wbc, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Wbc, new { @Value = (Model == null) ? 0 : Model.Wbc, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Baso, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Baso, new { @Value = (Model == null) ? 0 : Model.Baso, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Eo, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Eo, new { @Value = (Model == null) ? 0 : Model.Eo, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Lymph, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Lymph, new { @Value = (Model == null) ? 0 : Model.Lymph, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Hct, new { @class = "col-lg-6 control-label" })
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.Hct, new { @Value = (Model == null) ? 0 : Model.Hct, @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <button type="submit" name="confirm" class="btn btn-primary btn-fill">Confirm</button>
+                </fieldset>
+            }
+        </div>
     </div>
 </div>
