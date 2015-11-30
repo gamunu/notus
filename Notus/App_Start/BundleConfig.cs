@@ -1,10 +1,28 @@
-﻿using System.Web.Optimization;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Web.Optimization;
 
 namespace Notus
 {
+    class AsIsBundleOrderer : IBundleOrderer
+    {
+        public virtual IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+        {
+            return files;
+        }
+    }
+    static class BundleExtensions
+    {
+        public static Bundle ForceOrdered(this Bundle sb)
+        {
+            sb.Orderer = new AsIsBundleOrderer();
+            return sb;
+        }
+    }
     public class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -38,7 +56,7 @@ namespace Notus
                 "~/Scripts/jqplot.highlighter.min.js",
                 "~/Scripts/handlebars-1.0.rc.1.js",
                 "~/Scripts/jquery.nicescroll.min.js"
-                ));
+                ).ForceOrdered());
 
             bundles.Add(new ScriptBundle("~/Scripts/Layout").Include(
                 "~/Scripts/jquery-1.7.2.min.js",
@@ -58,7 +76,7 @@ namespace Notus
                 "~/Scripts/jqModal.js",
                 "~/Scripts/handlebars-1.0.rc.1.js",
                 "~/Scripts/jquery.nicescroll.min.js"
-                ));
+                ).ForceOrdered());
 
 
             bundles.Add(new ScriptBundle("~/Scripts/PageLayout").Include(
@@ -88,7 +106,7 @@ namespace Notus
                 "~/Scripts/jqplot.highlighter.min.js",
                 "~/Scripts/jquery.nicescroll.min.js",
                 "~/Scripts/handlebars-1.0.rc.1.js"
-                ));
+                ).ForceOrdered());
 
             bundles.Add(new ScriptBundle("~/Scripts/GoalLayout").Include(
                 "~/Scripts/jquery-1.7.2.min.js",
@@ -117,7 +135,7 @@ namespace Notus
                 "~/Scripts/jqplot.highlighter.min.js",
                 "~/Scripts/jquery.nicescroll.min.js",
                 "~/Scripts/handlebars-1.0.rc.1.js"
-                ));
+                ).ForceOrdered());
 
 
             bundles.Add(new StyleBundle("~/Content/CSS").Include(
@@ -127,7 +145,7 @@ namespace Notus
                 "~/Content/jquery-ui-1.8.21.custom.css",
                 "~/Content/jqModal.css",
                 "~/Content/jquery.jqplot.min.css"
-                ));
+                ).ForceOrdered());
         }
     }
 }
